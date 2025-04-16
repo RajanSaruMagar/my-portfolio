@@ -4,7 +4,7 @@ const ServiceSection = () => {
   return (
     <div
       id="service"
-      className="bg-black text-white min-h-screen  px-6 md:px-20 lg:px-40 py-12"
+      className="bg-black text-white   px-6 md:px-20 lg:px-40 py-12"
     >
       {/* Top beginning service code section */}
       <div className=" mb-10">

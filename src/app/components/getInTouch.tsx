@@ -1,9 +1,13 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 
 const GetInTouch = () => {
-  async function handleSubmit(e: React.ChangeEvent<HTMLInputElement>) {
+  const [fullName, setFullName] = useState("");
+  const [formEmail, setFormEmail] = useState("");
+  const [formMessage, setFormMessage] = useState("");
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const response = await fetch("https://api.web3forms.com/submit", {
       method: "POST",
@@ -13,13 +17,14 @@ const GetInTouch = () => {
       },
       body: JSON.stringify({
         access_key: "553b649b-ef88-48d8-b3e4-025d670c9c94",
-        name: e.target.name.value,
-        email: e.target.email.value,
-        message: e.target.message.value,
+        name: fullName,
+        email: formEmail,
+        message: formMessage,
       }),
     });
     const result = await response.json();
     if (result.success) {
+      alert("succcesss");
       console.log(result);
     }
   }
@@ -49,6 +54,9 @@ const GetInTouch = () => {
               <input
                 type="text"
                 className="mt-1 p-2 w-full border rounded-lg"
+                onChange={(e) => {
+                  setFullName(e.target.value);
+                }}
               />
             </div>
             <div>
@@ -56,11 +64,19 @@ const GetInTouch = () => {
               <input
                 type="email"
                 className="mt-1 p-2 w-full border rounded-lg"
+                onChange={(e) => {
+                  setFormEmail(e.target.value);
+                }}
               />
             </div>
             <div>
               <label className="block text-sm text-black">Message</label>
-              <textarea className="mt-1 p-2 w-full h-32 border rounded-lg resize-none overflow-auto"></textarea>
+              <textarea
+                className="mt-1 p-2 w-full h-32 border rounded-lg resize-none overflow-auto"
+                onChange={(e) => {
+                  setFormMessage(e.target.value);
+                }}
+              ></textarea>
             </div>
             <button
               type="submit"
