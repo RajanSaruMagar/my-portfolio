@@ -18,7 +18,7 @@ export default function LandingPage() {
 
       {/* icon */}
 
-      <div className="absolute flex  gap-4">
+      <div className="absolute bg-white flex gap-4">
         <a href="https://www.linkedin.com/in/rajan-saru-magar-6a168230a/">
           <img className="h-5 w-5" src="linkedin.svg" />
         </a>
@@ -31,7 +31,7 @@ export default function LandingPage() {
       </div>
 
       {/* Text and Link */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0  flex items-center justify-center">
         <Link
           href="/Homepage"
           className="text-6xl font-medium text-white relative z-10"

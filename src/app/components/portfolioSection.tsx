@@ -12,7 +12,7 @@ export default function Portfolio() {
           {/* Top-right video */}
           <div className="flex justify-end items-start ">
             <video
-              className="h-[70%] w-[60%] rounded-lg brightness-50"
+              className="h-[70%] w-[60%] rounded-sm brightness-50"
               autoPlay
               loop
               muted
@@ -26,7 +26,7 @@ export default function Portfolio() {
           {/* Bottom-left video */}
           <div className="flex justify-start items-end ">
             <video
-              className="h-[70%] w-[60%] rounded-lg brightness-50"
+              className="h-[70%] w-[60%] rounded-sm brightness-50"
               autoPlay
               loop
               muted
@@ -91,7 +91,6 @@ export default function Portfolio() {
             LOGO
             <span className="text-2xl font-medium text-indigo-600">folio</span>
           </p>
-          
         </div>
 
         {/* Poster Design Section */}
@@ -112,7 +111,7 @@ export default function Portfolio() {
           {/* Right Image Grid */}
           <div className="grid grid-cols-3 gap-4">
             <img src="/design.png" />
-            <img src="/design.png" />
+            <img src="/illust.svg" />
             <img src="/design.png" />
             <img src="/design.png" />
             <img src="/design.png" />
