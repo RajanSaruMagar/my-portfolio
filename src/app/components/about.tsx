@@ -42,7 +42,7 @@ const AboutSection = () => {
             bringing ideas to life through clean code and aesthetic visuals.
           </p>
           <p className="text-gray-200 text-lg font-medium">
-            Let’s collaborate and build something amazing together! 🚀
+           <span className="bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">Let’s collaborate and build something amazing together!</span>  🚀
           </p>
         </div>
       </div>

@@ -35,7 +35,9 @@ const GetInTouch = () => {
     >
       {/* Heading  */}
       <div className="space-y-4 py-5">
-        <p className="text-indigo-600 text-[12px]">CONNECT WITH ME</p>
+        <p className="text-green-600  text-[14px]  animate-pulse">
+          <span className="text-2xl ">★ </span> CONNECT WITH ME
+        </p>
         <p className="text-gray-600 text-sm">
           Have an idea in mind? Let’s bring it to life with creativity and
           precision.
@@ -78,18 +80,24 @@ const GetInTouch = () => {
                 }}
               ></textarea>
             </div>
-            <button
-              type="submit"
-              className="px-10 bg-indigo-600 text-white p-2 rounded-lg hover:bg-black"
-            >
-              Submit
-            </button>
+            <div className="inline-block p-[2px] rounded-lg">
+              <button
+                type="submit"
+                className="relative px-10 py-2 rounded-lg bg-gradient-to-r from-indigo-500 to-indigo-700 text-white font-semibold shadow-[0_4px_14px_rgba(99,102,241,0.4)] transition-all duration-300 ease-in-out hover:bg-black hover:shadow-[0_4px_20px_rgba(0,0,0,0.6)] hover:scale-105 focus:outline-none focus:ring-0"
+              >
+                Submit
+              </button>
+            </div>
           </form>
         </div>
 
         {/* right boxes of contact section */}
         <div className="bg-white w-[40%] h-[80%] rounded-xl shadow-lg p-10 space-y-4">
-          <p className="text-green-600"> Available for work</p>
+          <p className="text-green-600 flex items-center  gap-2  animate-pulse">
+            <span className="h-2 w-2 bg-green-600 rounded-full"></span>
+            Available for work
+          </p>
+
           <div className="w-20 h-20 overflow-hidden rounded-full ">
             <img src="about.png" />
           </div>

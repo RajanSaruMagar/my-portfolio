@@ -21,11 +21,13 @@ const HomeSection = () => {
             {/* Top Row */}
             <div className="flex justify-between items-start">
               {/* Left Title */}
-              <div className="text-8xl leading-tight">
-                New<br />
-                <span className="italic font-Galada text-8xl  pl-20">freedoms</span>
+              <div className="text-9xl ">
+                New
+                <br />
+                <span className="italic font-Galada  text-9xl  pl-24">
+                  freedoms
+                </span>
               </div>
-
               {/* Right Dummy Space */}
               <div className="w-48 h-24" /> {/* Empty but holds space */}
             </div>
@@ -33,15 +35,22 @@ const HomeSection = () => {
             {/* Bottom Row */}
             <div className="flex justify-between items-end">
               {/* Bottom Left Text */}
-              <div className="max-w-md  text-xl text-gray-200">
-                Ideate, visualize, create videos, and share your dreams with the world,
-                using our most powerful image and video AI models. Available now Web.
+              <div className="max-w-md text-xl text-gray-200">
+                <span className="opacity-50">
+                  Ideate, visualize, create videos, and share your dreams with
+                  the world, using our most powerful image and video
+                </span>{" "}
+                <span>AI</span>{" "}
+                <span className="opacity-50">models. Available now</span>{" "}
+                <span>Web</span>.
               </div>
 
               {/* Bottom Right: "of imagination" */}
               <div className="text-right ">
                 <div className="text-8xl font-normal">of</div>
-                <div className="text-8xl font-playfair italic pr-10">imagination</div>
+                <div className="text-8xl font-playfair italic pr-10">
+                  imagination
+                </div>
               </div>
             </div>
           </div>
@@ -50,15 +59,19 @@ const HomeSection = () => {
 
       {/* Bottom CTA Section */}
       <div className="bg-black h-[15%] w-full flex justify-between items-center px-10">
-        <div className="text-4xl font-normal leading-tight">
-          Dream<br />
-          <span className="font-bold text-2xl pl-8">MACHINE</span>
+        <div className="text-4xl font-extralight leading-tight">
+          Dream
+          <br />
+          <span className="font-semibold text-2xl pl-8">MACHINE</span>
         </div>
 
         {/* image section  */}
         <img src="profile.png" className="relative " />
 
-        <a  href="#contact" className="bg-white text-black font-semibold text-xl px-10 py-4 rounded-full ">
+        <a
+          href="#contact"
+          className="bg-white text-black font-semibold text-2xl px-10 py-4 rounded-full "
+        >
           Try Now
         </a>
       </div>
