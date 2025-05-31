@@ -6,13 +6,16 @@ const AboutSection = () => {
       id="about"
       className="bg-black h-screen flex justify-center items-center px-6 relative "
     >
-      <div className=" max-w-4xl flex flex-col md:flex-row items-center gap-10 text-center md:text-left relative z-20">
+      <div className=" max-w-4xl flex flex-col lg:flex-row items-center gap-10 text-center md:text-left relative z-20">
         {/* Image Section */}
-        <div className="w-56 h-36 md:w-[700px] md:h-96" data-aos="fade-up">
+        <div
+          className="w-full max-w-[80%] sm:max-w-[300px] aspect-[3/4] mx-auto"
+          data-aos="fade-up"
+        >
           <img
             src="about.png"
             alt="About Me"
-            className="w-full h-full object-cover rounded-[10%] shadow-lg"
+            className="w-full h-full object-cover rounded-xl shadow-lg bg-white"
           />
         </div>
 
@@ -42,7 +45,10 @@ const AboutSection = () => {
             bringing ideas to life through clean code and aesthetic visuals.
           </p>
           <p className="text-gray-200 text-lg font-medium">
-           <span className="bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">Let’s collaborate and build something amazing together!</span>  🚀
+            <span className="bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">
+              Let’s collaborate and build something amazing together!
+            </span>{" "}
+            🚀
           </p>
         </div>
       </div>

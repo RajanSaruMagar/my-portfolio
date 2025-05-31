@@ -1,7 +1,27 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const HomeSection = () => {
+  const [videoSrc, setVideoSrc] = useState("/back1.mp4"); // default to Asia
+
+  useEffect(() => {
+    const fetchLocation = async () => {
+      try {
+        const res = await fetch("https://ipapi.co/json/");
+        const data = await res.json();
+        const region = data?.continent_code || "";
+
+        if (region !== "AS") {
+          setVideoSrc("/back.mp4");
+        }
+      } catch (error) {
+        console.error("Failed to fetch location:", error);
+      }
+    };
+
+    fetchLocation();
+  }, []);
+
   return (
     <div id="home" className="text-white h-screen flex flex-col bg-black">
       {/* Video Background Section */}
@@ -9,8 +29,8 @@ const HomeSection = () => {
         <div className="relative w-full h-full rounded-3xl overflow-hidden">
           {/* Video */}
           <video
-            className="w-full h-full object-cover filter blur-sm"
-            src="/back.mp4"
+            className="w-full h-full object-cover "
+            src={videoSrc}
             autoPlay
             loop
             muted
@@ -20,7 +40,6 @@ const HomeSection = () => {
           <div className="absolute inset-0 flex flex-col justify-between p-10 z-10">
             {/* Top Row */}
             <div className="flex justify-between items-start">
-              {/* Left Title */}
               <div className="text-9xl ">
                 New
                 <br />
@@ -28,13 +47,11 @@ const HomeSection = () => {
                   freedoms
                 </span>
               </div>
-              {/* Right Dummy Space */}
-              <div className="w-48 h-24" /> {/* Empty but holds space */}
+              <div className="w-48 h-24" />
             </div>
 
             {/* Bottom Row */}
             <div className="flex justify-between items-end">
-              {/* Bottom Left Text */}
               <div className="max-w-md text-xl text-gray-200">
                 <span className="opacity-50">
                   Ideate, visualize, create videos, and share your dreams with
@@ -45,7 +62,6 @@ const HomeSection = () => {
                 <span>Web</span>.
               </div>
 
-              {/* Bottom Right: "of imagination" */}
               <div className="text-right ">
                 <div className="text-8xl font-normal">of</div>
                 <div className="text-8xl font-playfair italic pr-10">
@@ -65,8 +81,7 @@ const HomeSection = () => {
           <span className="font-semibold text-2xl pl-8">MACHINE</span>
         </div>
 
-        {/* image section  */}
-        <img src="profile.png" className="relative " />
+        <img src="profile.png" className="relative mb-96" />
 
         <a
           href="#contact"

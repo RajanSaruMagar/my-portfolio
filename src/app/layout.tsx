@@ -3,7 +3,8 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Rajan Saru Magar | Portfolio",
-  description: "Welcome to the personal portfolio of Rajan Saru Magar – Frontend Developer & Designer.",
+  description:
+    "Welcome to the personal portfolio of Rajan Saru Magar – Frontend Developer & Designer.",
   icons: {
     icon: "/favicon.ico",
   },

@@ -11,6 +11,7 @@ const config: Config = {
       fontFamily: {
         playfair: ['"Playfair Display"', 'serif'],
         Galada: ['"Galada"', 'serif'],
+        
       },
       colors: {
         background: "var(--background)",

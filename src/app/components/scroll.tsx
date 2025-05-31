@@ -10,13 +10,11 @@ export default function ScrollText() {
     offset: ['start end', 'end start'],
   });
 
-  // Create staggered color transitions for each line
-  const colors = [
-    useTransform(scrollYProgress, [0, 0.2, 0.4], ['#ffffff', '#3b82f6', '#4f46e5']),
-    useTransform(scrollYProgress, [0.1, 0.3, 0.5], ['#ffffff', '#3b82f6', '#4f46e5']),
-    useTransform(scrollYProgress, [0.2, 0.4, 0.6], ['#ffffff', '#3b82f6', '#4f46e5']),
-    useTransform(scrollYProgress, [0.3, 0.5, 0.7], ['#ffffff', '#3b82f6', '#4f46e5']),
-  ];
+  // Create color transitions OUTSIDE of .map()
+  const color1 = useTransform(scrollYProgress, [0.0, 0.15, 0.3], ['#ffffff', '#3b82f6', '#4f46e5']);
+  const color2 = useTransform(scrollYProgress, [0.2, 0.35, 0.5], ['#ffffff', '#3b82f6', '#4f46e5']);
+  const color3 = useTransform(scrollYProgress, [0.4, 0.55, 0.7], ['#ffffff', '#3b82f6', '#4f46e5']);
+  const color4 = useTransform(scrollYProgress, [0.6, 0.75, 0.9], ['#ffffff', '#3b82f6', '#4f46e5']);
 
   const lines = [
     'ALL MY WORKS AT THE SAME PLACE.',
@@ -24,6 +22,8 @@ export default function ScrollText() {
     'EXPERIMENTS, COLLABORATIONS, AND',
     'UNSEEN OR UNUSED CONCEPTS',
   ];
+
+  const colors = [color1, color2, color3, color4];
 
   return (
     <div ref={ref} className="z-10 text-center px-4">

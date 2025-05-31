@@ -1,5 +1,6 @@
 "use client";
 import ScrollText from "./scroll";
+import ScrollFreezeShowcase from "./scrollEffect";
 
 export default function Portfolio() {
   return (
@@ -66,45 +67,7 @@ export default function Portfolio() {
           Design. Develop. Deliver.
         </p>
 
-        {/* Logo Section */}
-        <div>
-          <p className="text-4xl font-semibold">
-            LOGO <span className="text-2xl text-indigo-500">folio</span>
-          </p>
-        </div>
-
-        {/* Poster Section */}
-        <div className="grid md:grid-cols-2 gap-10 items-center">
-          {/* Left Text */}
-          <div className="space-y-5">
-            <h1 className="text-4xl sm:text-5xl font-semibold">
-              We&apos;ll Work on <br /> Your Projects
-            </h1>
-            <p className="text-lg text-gray-400">
-              Each piece reflects my love for visual storytelling—whether it’s a
-              poster, logo, or thumbnail, I focus on creating designs that stand
-              out and communicate clearly.
-            </p>
-          </div>
-
-          {/* Right Image Grid */}
-          <div className="grid grid-cols-3 gap-4">
-            {[
-              "design.png",
-              "illust.svg",
-              "design.png",
-              "design.png",
-              "design.png",
-            ].map((img, i) => (
-              <img
-                key={i}
-                src={`/${img}`}
-                alt={`Portfolio work ${i + 1}`}
-                className="rounded-lg object-cover"
-              />
-            ))}
-          </div>
-        </div>
+        <ScrollFreezeShowcase />
       </div>
     </div>
   );
