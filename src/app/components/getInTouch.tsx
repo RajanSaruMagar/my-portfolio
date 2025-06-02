@@ -24,104 +24,150 @@ const GetInTouch = () => {
     });
     const result = await response.json();
     if (result.success) {
-      alert("succcesss");
+      alert("Success!");
       console.log(result);
     }
   }
+
   return (
-    <div
-      id="contact"
-      className="h-screen flex flex-col justify-center bg-slate-200 px-[160px]"
-    >
-      {/* Heading  */}
-      <div className="space-y-4 py-5">
-        <p className="text-green-600  text-[14px]  animate-pulse">
-          <span className="text-2xl ">★ </span> CONNECT WITH ME
+    <div id="contact" className="bg-[#0a0a0a] text-white px-6 md:px-20 py-24">
+      {/* Heading */}
+      <div className="space-y-3 mb-16 max-w-xl">
+        <p className="text-indigo-600 text-sm animate-pulse flex items-center gap-2">
+          <span className="text-sm inline-block leading-none">★</span>
+          CONNECT WITH ME
         </p>
-        <p className="text-gray-600 text-sm">
+
+        <p className="text-4xl font-bold tracking-tight">
+          Let&apos;s start a project together
+        </p>
+        <p className="text-gray-400 text-sm">
           Have an idea in mind? Let’s bring it to life with creativity and
           precision.
         </p>
-        <p className="text-4xl font-semibold">
-          Let&apos;s start a project together
-        </p>
       </div>
 
-      {/* left boxes of contact section  */}
-      <div className="flex justify-start gap-60 w-full ">
-        <div className="w-[40%]">
-          <form className="space-y-4" onSubmit={handleSubmit}>
-            <div>
-              <label className="block text-sm  text-black">Full Name</label>
-              <input
-                type="text"
-                className="mt-1 p-2 w-full border rounded-lg"
-                onChange={(e) => {
-                  setFullName(e.target.value);
-                }}
-              />
-            </div>
-            <div>
-              <label className="block text-sm  text-black">Email</label>
-              <input
-                type="email"
-                className="mt-1 p-2 w-full border rounded-lg"
-                onChange={(e) => {
-                  setFormEmail(e.target.value);
-                }}
-              />
-            </div>
-            <div>
-              <label className="block text-sm text-black">Message</label>
-              <textarea
-                className="mt-1 p-2 w-full h-32 border rounded-lg resize-none overflow-auto"
-                onChange={(e) => {
-                  setFormMessage(e.target.value);
-                }}
-              ></textarea>
-            </div>
-            <div className="inline-block p-[2px] rounded-lg">
-              <button
-                type="submit"
-                className="relative px-10 py-2 rounded-lg bg-gradient-to-r from-indigo-500 to-indigo-700 text-white font-semibold shadow-[0_4px_14px_rgba(99,102,241,0.4)] transition-all duration-300 ease-in-out hover:bg-black hover:shadow-[0_4px_20px_rgba(0,0,0,0.6)] hover:scale-105 focus:outline-none focus:ring-0"
-              >
-                Submit
-              </button>
-            </div>
-          </form>
-        </div>
+      {/* Grid container */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        {/* Form */}
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-sm mb-1 text-gray-300">
+              Full Name
+            </label>
+            <input
+              type="text"
+              className="w-full bg-[#1a1a1a] border border-gray-700 text-white px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              onChange={(e) => setFullName(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm mb-1 text-gray-300">Email</label>
+            <input
+              type="email"
+              className="w-full bg-[#1a1a1a] border border-gray-700 text-white px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              onChange={(e) => setFormEmail(e.target.value)}
+              required
+            />
+          </div>
+          <div>
+            <label className="block text-sm mb-1 text-gray-300">Message</label>
+            <textarea
+              className="w-full h-32 bg-[#1a1a1a] border border-gray-700 text-white px-4 py-3 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              onChange={(e) => setFormMessage(e.target.value)}
+              required
+            ></textarea>
+          </div>
+          <button
+            type="submit"
+            className="px-8 py-3 rounded-md bg-indigo-600 hover:bg-indigo-700 transition font-medium shadow-lg"
+          >
+            Submit
+          </button>
+        </form>
 
-        {/* right boxes of contact section */}
-        <div className="bg-white w-[40%] h-[80%] rounded-xl shadow-lg p-10 space-y-4">
-          <p className="text-green-600 flex items-center  gap-2  animate-pulse">
-            <span className="h-2 w-2 bg-green-600 rounded-full"></span>
+        {/* Info box */}
+        <div
+          className="bg-[#121212] p-6 rounded-xl shadow-lg space-y-5 max-h-[520px] overflow-y-auto scroll-smooth"
+          style={{ scrollbarWidth: "thin", scrollbarColor: "#4f46e5 transparent" }}
+        >
+          <p className="text-indigo-600 flex items-center gap-2 animate-pulse text-sm">
+            <span className="h-2 w-2 bg-indigo-600 rounded-full" />
             Available for work
           </p>
 
-          <div className="w-20 h-20 overflow-hidden rounded-full ">
-            <img src="about.png" />
+          <div className="w-20 h-20 rounded-full overflow-hidden border border-gray-700">
+            <img
+              src="about.png"
+              alt="Rajan Saru Magar"
+              className="w-full h-full object-cover"
+            />
           </div>
 
-          <p>
-            My inbox is always open. Whether you have a project or just want to
-            say Hi. I <br />
-            would love to hear from you. Feel free to contact me and i&apos;ll
-            get back to you.
+          <div className="space-y-1">
+            <h3 className="text-xl font-semibold text-white">
+              Rajan Saru Magar
+            </h3>
+            <p className="text-sm text-gray-400">
+              Frontend Developer • Graphic Designer • UI/UX
+            </p>
+          </div>
+
+          <p className="text-gray-400 text-sm leading-relaxed">
+            I design clean interfaces, craft intuitive user experiences, and build modern frontends. Let’s turn your idea into a bold digital presence.
           </p>
 
-          {/* icons for the link of personal profiles */}
-          <div className="flex  gap-4">
-            <a href="https://www.linkedin.com/in/rajan-saru-magar-6a168230a/">
-              <img className="h-5 w-5" src="linkedin.svg" />
+          <ul className="text-gray-300 text-sm space-y-1">
+            <li>✔️ Frontend Development (Next.js, Tailwind)</li>
+            <li>✔️ UI/UX Design & Prototyping</li>
+            <li>✔️ Social Media Campaigns</li>
+            <li>✔️ Content Writing & Personal Branding</li>
+          </ul>
+
+          <a
+            href="#contact"
+            className="inline-block text-sm px-4 py-2 mt-2 rounded-md bg-indigo-600 hover:bg-indigo-700 transition font-medium shadow"
+          >
+            Let&apos;s Work Together
+          </a>
+
+          <div className="flex gap-4 pt-4">
+            <a
+              href="https://www.linkedin.com/in/rajan-saru-magar-6a168230a/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                className="h-5 w-5 filter invert brightness-200"
+                src="linkedin.svg"
+                alt="LinkedIn"
+              />
             </a>
-            <a href="https://github.com/RajanSaruMagar">
-              <img className="h-5 w-5" src="github.svg" />
+            <a href="https://github.com/RajanSaruMagar" target="_blank" rel="noreferrer">
+              <img
+                className="h-5 w-5 filter invert brightness-200"
+                src="github.svg"
+                alt="GitHub"
+              />
             </a>
-            <a href="https://www.instagram.com/rjan_mgrx/">
-              <img className="h-5 w-5" src="instagram.svg" />
+            <a
+              href="https://www.instagram.com/rjan_mgrx/"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                className="h-5 w-5 filter invert brightness-200"
+                src="instagram.svg"
+                alt="Instagram"
+              />
             </a>
-            <a href="https://x.com/rajan_saru29761">
-              <img className="h-5 w-5" src="twitter.svg" />
+            <a href="https://x.com/rajan_saru29761" target="_blank" rel="noreferrer">
+              <img
+                className="h-5 w-5 filter invert brightness-200"
+                src="twitter.svg"
+                alt="Twitter"
+              />
             </a>
           </div>
         </div>

@@ -10,9 +10,9 @@ const NavBarSection = () => {
     <nav className="fixed top-0 left-0 w-full z-50 bg-transparent text-white font-semibold text-xl">
       <div className="h-16 flex justify-between items-center px-6 md:px-20 lg:px-40">
         {/* Logo */}
-        <div className="h-12 w-auto">
+        <div className="h-16 w-auto">
           <img
-            src="/logo1.png"
+            src="/logo10.png"
             alt="Logo"
             className="h-full w-auto object-contain"
           />

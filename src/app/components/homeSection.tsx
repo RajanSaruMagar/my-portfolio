@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 
 const HomeSection = () => {
-  const [videoSrc, setVideoSrc] = useState("/back1.mp4"); // default to Asia
+  const [videoSrc, setVideoSrc] = useState("/back.mp4"); // default to Asia
 
   useEffect(() => {
     const fetchLocation = async () => {
@@ -12,7 +12,7 @@ const HomeSection = () => {
         const region = data?.continent_code || "";
 
         if (region !== "AS") {
-          setVideoSrc("/back.mp4");
+          setVideoSrc("/back1.mp4");
         }
       } catch (error) {
         console.error("Failed to fetch location:", error);
@@ -29,7 +29,7 @@ const HomeSection = () => {
         <div className="relative w-full h-full rounded-3xl overflow-hidden">
           {/* Video */}
           <video
-            className="w-full h-full object-cover "
+            className="w-full h-full object-cover blur-sm "
             src={videoSrc}
             autoPlay
             loop
@@ -84,11 +84,15 @@ const HomeSection = () => {
         <img src="profile.png" className="relative mb-96" />
 
         <a
-          href="#contact"
-          className="bg-white text-black font-semibold text-2xl px-10 py-4 rounded-full "
-        >
-          Try Now
-        </a>
+  href="#contact"
+  className="relative overflow-hidden z-10 bg-white text-black font-semibold text-2xl px-10 py-4 rounded-full group transition-colors duration-700 ease-out"
+>
+  <span className="relative z-20 transition-colors duration-700 group-hover:text-white">
+    Try Now
+  </span>
+  <span className="absolute inset-0 rounded-full bg-black scale-0 group-hover:scale-150 transition-transform duration-700 ease-out z-10 origin-center" />
+</a>
+
       </div>
     </div>
   );
