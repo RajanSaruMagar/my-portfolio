@@ -47,15 +47,6 @@ export default function Portfolio() {
 
       {/* Showcase Section */}
       <div className="text-white py-10 space-y-20">
-        {/* Paragraph */}
-        <p className="font-medium text-lg leading-relaxed text-gray-300">
-          A well-designed website is crucial for any business, as it serves as a
-          digital storefront, provides 24/7 accessibility, and showcases
-          products or services. It helps build credibility, drive traffic, and
-          improve sales—ultimately contributing to growth and success in a
-          competitive market.
-        </p>
-
         {/* Quote */}
         <p className="text-md font-semibold text-indigo-500">
           &quot;Your brand is what other people say about you when you&apos;re

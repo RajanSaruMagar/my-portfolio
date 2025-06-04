@@ -23,7 +23,7 @@ const HomeSection = () => {
   }, []);
 
   return (
-    <div id="home" className="text-white h-screen flex flex-col bg-black">
+    <div id="home" className="text-white h-screen flex flex-col bg-black pb-80 lg:pb-0">
       {/* Video Background Section */}
       <div className="relative h-[85%] w-full px-10 py-5">
         <div className="relative w-full h-full rounded-3xl overflow-hidden">
@@ -43,8 +43,8 @@ const HomeSection = () => {
               <div className="text-9xl ">
                 New
                 <br />
-                <span className="italic font-Galada  text-9xl  pl-24">
-                  freedoms
+                <span className="italic font-playfair  text-9xl  pl-24">
+                  Vision
                 </span>
               </div>
               <div className="w-48 h-24" />
@@ -52,7 +52,7 @@ const HomeSection = () => {
 
             {/* Bottom Row */}
             <div className="flex justify-between items-end">
-              <div className="max-w-md text-xl text-gray-200">
+              <div className="hidden md:block max-w-md text-xl text-gray-200">
                 <span className="opacity-50">
                   Ideate, visualize, create videos, and share your dreams with
                   the world, using our most powerful image and video
@@ -75,24 +75,23 @@ const HomeSection = () => {
 
       {/* Bottom CTA Section */}
       <div className="bg-black h-[15%] w-full flex justify-between items-center px-10">
-        <div className="text-4xl font-extralight leading-tight">
-          Dream
+        <div className="text-4xl font-extralight leading-[0.8] font-playfair">
+          <span className="text-5xl  ">D</span>ream
           <br />
-          <span className="font-semibold text-2xl pl-8">MACHINE</span>
+          <span className="font-bold text-2xl pl-10">MACHINE</span>
         </div>
 
         <img src="profile.png" className="relative mb-96" />
 
         <a
-  href="#contact"
-  className="relative overflow-hidden z-10 bg-white text-black font-semibold text-2xl px-10 py-4 rounded-full group transition-colors duration-700 ease-out"
->
-  <span className="relative z-20 transition-colors duration-700 group-hover:text-white">
-    Try Now
-  </span>
-  <span className="absolute inset-0 rounded-full bg-black scale-0 group-hover:scale-150 transition-transform duration-700 ease-out z-10 origin-center" />
-</a>
-
+          href="#contact"
+          className="relative overflow-hidden z-10 bg-white text-black font-semibold text-2xl px-10 py-4 rounded-full group transition-colors duration-700 ease-out"
+        >
+          <span className="relative z-20 transition-colors duration-700 group-hover:text-white">
+            Try Now
+          </span>
+          <span className="absolute inset-0 rounded-full bg-black scale-0 group-hover:scale-150 transition-transform duration-700 ease-out z-10 origin-center" />
+        </a>
       </div>
     </div>
   );

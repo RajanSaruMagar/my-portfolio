@@ -92,8 +92,8 @@ const GetInTouch = () => {
           className="bg-[#121212] p-6 rounded-xl shadow-lg space-y-5 max-h-[520px] overflow-y-auto scroll-smooth"
           style={{ scrollbarWidth: "thin", scrollbarColor: "#4f46e5 transparent" }}
         >
-          <p className="text-indigo-600 flex items-center gap-2 animate-pulse text-sm">
-            <span className="h-2 w-2 bg-indigo-600 rounded-full" />
+          <p className="text-green-600 flex items-center gap-2 animate-pulse text-sm">
+            <span className="h-2 w-2 bg-green-600 rounded-full" />
             Available for work
           </p>
 

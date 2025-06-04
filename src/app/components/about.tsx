@@ -6,7 +6,7 @@ const AboutSection = () => {
       id="about"
       className="bg-black h-screen flex justify-center items-center px-6 relative "
     >
-      <div className=" max-w-4xl flex flex-col lg:flex-row items-center gap-10 text-center md:text-left relative z-20">
+      <div className=" max-w-4xl flex flex-col lg:flex-row items-center gap-10 text-center md:text-left relative z-20 mb-40">
         {/* Image Section */}
         <div
           className="w-full max-w-[80%] sm:max-w-[300px] aspect-[3/4] mx-auto"

@@ -12,24 +12,80 @@ const texts = [
 // Base styles for desktop, mobile overrides for mobile layout
 const imageSets = [
   [
-    { src: "/logo1.png", style: { left: "15%", bottom: "10%" }, mobileStyle: { left: "5%", bottom: "15%" } },
-    { src: "/logo2.png", style: { left: "40%", bottom: "15%" }, mobileStyle: { left: "35%", bottom: "5%" } },
-    { src: "/logo3.png", style: { right: "20%", bottom: "8%" }, mobileStyle: { right: "5%", bottom: "20%" } },
+    {
+      src: "/logo1.png",
+      style: { left: "15%", bottom: "10%" },
+      mobileStyle: { left: "5%", bottom: "15%" },
+    },
+    {
+      src: "/logo2.png",
+      style: { left: "40%", bottom: "15%" },
+      mobileStyle: { left: "35%", bottom: "5%" },
+    },
+    {
+      src: "/logo3.png",
+      style: { right: "20%", bottom: "8%" },
+      mobileStyle: { right: "5%", bottom: "20%" },
+    },
   ],
   [
-    { src: "/package1.png", style: { left: "10%", bottom: "15%" }, mobileStyle: { left: "8%", bottom: "10%" } },
-    { src: "/package2.png", style: { left: "50%", bottom: "10%", transform: "translateX(-50%)" }, mobileStyle: { left: "50%", bottom: "15%", transform: "translateX(-50%)" } },
-    { src: "/package3.png", style: { right: "10%", bottom: "20%" }, mobileStyle: { right: "8%", bottom: "10%" } },
+    {
+      src: "/package1.png",
+      style: { left: "10%", bottom: "15%" },
+      mobileStyle: { left: "8%", bottom: "10%" },
+    },
+    {
+      src: "/package2.png",
+      style: { left: "50%", bottom: "10%", transform: "translateX(-50%)" },
+      mobileStyle: {
+        left: "50%",
+        bottom: "15%",
+        transform: "translateX(-50%)",
+      },
+    },
+    {
+      src: "/package3.png",
+      style: { right: "10%", bottom: "20%" },
+      mobileStyle: { right: "8%", bottom: "10%" },
+    },
   ],
   [
-    { src: "/poster1.png", style: { left: "5%", bottom: "10%" }, mobileStyle: { left: "10%", bottom: "12%" } },
-    { src: "/poster2.png", style: { left: "40%", bottom: "5%" }, mobileStyle: { left: "30%", bottom: "10%" } },
-    { src: "/poster3.png", style: { right: "5%", bottom: "15%" }, mobileStyle: { right: "8%", bottom: "15%" } },
+    {
+      src: "/poster1.png",
+      style: { left: "5%", bottom: "10%" },
+      mobileStyle: { left: "10%", bottom: "12%" },
+    },
+    {
+      src: "/poster2.png",
+      style: { left: "40%", bottom: "5%" },
+      mobileStyle: { left: "30%", bottom: "10%" },
+    },
+    {
+      src: "/poster3.png",
+      style: { right: "5%", bottom: "15%" },
+      mobileStyle: { right: "8%", bottom: "15%" },
+    },
   ],
   [
-    { src: "/book1.png", style: { left: "50%", bottom: "10%", transform: "translateX(-50%)" }, mobileStyle: { left: "50%", bottom: "10%", transform: "translateX(-50%)" } },
-    { src: "/book2.png", style: { left: "20%", bottom: "25%" }, mobileStyle: { left: "15%", bottom: "20%" } },
-    { src: "/book3.png", style: { right: "20%", bottom: "20%" }, mobileStyle: { right: "15%", bottom: "20%" } },
+    {
+      src: "/book1.png",
+      style: { left: "50%", bottom: "10%", transform: "translateX(-50%)" },
+      mobileStyle: {
+        left: "50%",
+        bottom: "10%",
+        transform: "translateX(-50%)",
+      },
+    },
+    {
+      src: "/book2.png",
+      style: { left: "20%", bottom: "25%" },
+      mobileStyle: { left: "15%", bottom: "20%" },
+    },
+    {
+      src: "/book3.png",
+      style: { right: "20%", bottom: "20%" },
+      mobileStyle: { right: "15%", bottom: "20%" },
+    },
   ],
 ];
 
@@ -90,17 +146,27 @@ const ScrollFreezeShowcase = () => {
         <div className="absolute inset-0 z-0 flex flex-col items-center">
           {imageSets.map((images, i) => {
             const offset = i - exactIndex;
-            const translateY = offset * 100;
+            const baseTranslateY = offset * 100;
+
             const opacity = 1 - Math.min(Math.abs(offset), 1);
 
             if (width < 1024) {
               // Mobile/tablet: stack sets vertically with translateY & flex-wrap images
+
+              // Fix for package design (index 1) on mobile: limit upward translateY to -5vh max
+              let mobileTranslateY = baseTranslateY;
+              if (i === 1) {
+                const maxMobileUpwardTranslate = -5;
+                if (baseTranslateY < maxMobileUpwardTranslate)
+                  mobileTranslateY = maxMobileUpwardTranslate;
+              }
+
               return (
                 <div
                   key={`mobile-set-${i}`}
                   className="flex flex-wrap justify-center gap-4 px-6 py-12 transition-opacity duration-500 ease-out"
                   style={{
-                    transform: `translateY(${translateY}vh)`,
+                    transform: `translateY(${mobileTranslateY}vh)`,
                     opacity,
                     width: "100%",
                     minHeight: getResponsiveSize() * 1.2 + 40,
@@ -141,7 +207,9 @@ const ScrollFreezeShowcase = () => {
                   className="absolute rounded-2xl shadow-2xl transition-transform duration-500 ease-out will-change-transform overflow-hidden"
                   style={{
                     ...baseStyle,
-                    transform: `${baseStyle.transform || ""} translateY(${translateY}vh)`,
+                    transform: `${
+                      baseStyle.transform || ""
+                    } translateY(${baseTranslateY}vh)`,
                     opacity,
                     width: `${getResponsiveSize()}px`,
                     height: `${getResponsiveSize() * 1.2}px`,
@@ -185,7 +253,7 @@ const ScrollFreezeShowcase = () => {
         </div>
 
         {/* Responsive sidebar navigation */}
-        <div className="absolute bottom-10 left-4 md:left-10 z-20 text-white text-sm md:text-base font-medium max-w-xs sm:max-w-md">
+        <div className="sticky bottom-10 left-4 md:left-10 z-20 text-white text-sm md:text-base font-medium max-w-xs sm:max-w-md">
           <p className="mb-4 text-white/70 tracking-wide uppercase">
             Explore my visual design journey
           </p>

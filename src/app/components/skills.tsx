@@ -26,7 +26,7 @@ export default function SkillsCarousel() {
   const scrollingSkills = [...skills, ...skills];
 
   return (
-    <div className="relative bg-black py-20 flex flex-col items-center">
+    <div className="relative bg-black py-20 flex flex-col items-center ">
       <div className="text-center mb-12">
         <div className="flex items-center justify-center gap-2 mb-2">
           <Sparkles className="text-indigo-500" size={22} />
@@ -38,7 +38,8 @@ export default function SkillsCarousel() {
           Skills & Tools
         </h2>
         <p className="text-gray-400 mt-2 text-sm max-w-md mx-auto">
-          A curated blend of technologies & design tools I use to bring ideas to life.
+          A curated blend of technologies & design tools I use to bring ideas to
+          life.
         </p>
       </div>
 
@@ -51,7 +52,7 @@ export default function SkillsCarousel() {
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10" />
 
-          <div className="flex gap-6 animate-scroll px-8">
+          <div className="flex gap-6 animate-scroll cursor-pointer px-8">
             {scrollingSkills.map((skill, index) => {
               const isDarkLogo =
                 skill.name.toLowerCase() === "github" ||

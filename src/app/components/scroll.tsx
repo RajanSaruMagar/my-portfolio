@@ -1,26 +1,42 @@
-'use client';
+"use client";
 
-import { useScroll, useTransform, motion } from 'framer-motion';
-import { useRef } from 'react';
+import { useScroll, useTransform, motion } from "framer-motion";
+import { useRef } from "react";
 
 export default function ScrollText() {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ['start end', 'end start'],
+    offset: ["start end", "end start"],
   });
 
   // Create color transitions OUTSIDE of .map()
-  const color1 = useTransform(scrollYProgress, [0.0, 0.15, 0.3], ['#ffffff', '#3b82f6', '#4f46e5']);
-  const color2 = useTransform(scrollYProgress, [0.2, 0.35, 0.5], ['#ffffff', '#3b82f6', '#4f46e5']);
-  const color3 = useTransform(scrollYProgress, [0.4, 0.55, 0.7], ['#ffffff', '#3b82f6', '#4f46e5']);
-  const color4 = useTransform(scrollYProgress, [0.6, 0.75, 0.9], ['#ffffff', '#3b82f6', '#4f46e5']);
+  const color1 = useTransform(
+    scrollYProgress,
+    [0.0, 0.15, 0.3],
+    ["#ffffff", "#3b82f6", "#4f46e5"]
+  );
+  const color2 = useTransform(
+    scrollYProgress,
+    [0.2, 0.35, 0.5],
+    ["#ffffff", "#3b82f6", "#4f46e5"]
+  );
+  const color3 = useTransform(
+    scrollYProgress,
+    [0.4, 0.55, 0.7],
+    ["#ffffff", "#3b82f6", "#4f46e5"]
+  );
+  const color4 = useTransform(
+    scrollYProgress,
+    [0.6, 0.75, 0.9],
+    ["#ffffff", "#3b82f6", "#4f46e5"]
+  );
 
   const lines = [
-    'ALL MY WORKS AT THE SAME PLACE.',
-    'INCLUDES SMALLER PIECES OF WORK,',
-    'EXPERIMENTS, COLLABORATIONS, AND',
-    'UNSEEN OR UNUSED CONCEPTS',
+    "ALL MY WORKS AT THE SAME PLACE.",
+    "INCLUDES SMALLER PIECES OF WORK,",
+    "EXPERIMENTS, COLLABORATIONS, AND",
+    "UNSEEN OR UNUSED CONCEPTS",
   ];
 
   const colors = [color1, color2, color3, color4];
@@ -38,7 +54,12 @@ export default function ScrollText() {
           </motion.span>
         ))}
       </h1>
-      <p className="text-white text-xl mt-12 animate-bounce">↓ Scroll Down ↓</p>
+    <a
+  href="#service"
+  className="block text-white text-xl mt-12 animate-bounce"
+>
+  ↓ SCROLL DOWN ↓
+</a>
     </div>
   );
 }
