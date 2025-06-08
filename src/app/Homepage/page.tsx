@@ -13,7 +13,7 @@ const Homepage = () => {
       <div>
         <NavBarSection />
         <HomeSection />
-        <AboutSection />
+        <AboutSection  />
         <SkillsCarousel />
         <PortfolioSection />
         <ServiceSection />

@@ -23,13 +23,16 @@ const HomeSection = () => {
   }, []);
 
   return (
-    <div id="home" className="text-white h-screen flex flex-col bg-black pb-80 lg:pb-0">
+    <div
+      id="home"
+      className="text-white h-screen flex flex-col bg-black pb-80 lg:pb-0"
+    >
       {/* Video Background Section */}
-      <div className="relative h-[85%] w-full px-10 py-5">
+      <div className="relative h-screen md:h-[85%] w-full px-10 py-5">
         <div className="relative w-full h-full rounded-3xl overflow-hidden">
           {/* Video */}
           <video
-            className="w-full h-full object-cover blur-sm "
+            className="w-full  h-full object-cover  blur-sm "
             src={videoSrc}
             autoPlay
             loop
@@ -63,8 +66,8 @@ const HomeSection = () => {
               </div>
 
               <div className="text-right ">
-                <div className="text-8xl font-normal">of</div>
-                <div className="text-8xl font-playfair italic pr-10">
+                <div className="text-4xl md:text-8xl font-normal">of</div>
+                <div className="text-4xl md:text-8xl font-playfair italic pr-10">
                   imagination
                 </div>
               </div>
@@ -74,25 +77,28 @@ const HomeSection = () => {
       </div>
 
       {/* Bottom CTA Section */}
-      <div className="bg-black h-[15%] w-full flex justify-between items-center px-10">
-        <div className="text-4xl font-extralight leading-[0.8] font-playfair">
-          <span className="text-5xl  ">D</span>ream
+      <div className=" relative h-[15%] w-full flex justify-between items-center px-0 md:px-10">
+        <div className="text-xl md:text-4xl font-extralight leading-[17px] font-playfair ">
+          <span className="text-3xl md:text-5xl  ">D</span>ream
           <br />
-          <span className="font-bold text-2xl pl-10">MACHINE</span>
+          <span className="font-bold md:text-2xl pl-3  md:pl-10">
+            MACHINE
+          </span>{" "}
         </div>
-
-        <img src="profile.png" className="relative mb-96" />
 
         <a
           href="#contact"
-          className="relative overflow-hidden z-10 bg-white text-black font-semibold text-2xl px-10 py-4 rounded-full group transition-colors duration-700 ease-out"
+          className="relative overflow-hidden z-10 bg-white text-black font-semibold text-lg sm:text-xl md:text-2xl px-6 sm:px-8 md:px-10 py-2 md:py-4 rounded-full group transition-colors duration-700 ease-out whitespace-nowrap"
         >
-          <span className="relative z-20 transition-colors duration-700 group-hover:text-white">
+          <span className="relative z-20 transition-colors duration-700 text-center hover:text-white whitespace-nowrap">
             Try Now
           </span>
           <span className="absolute inset-0 rounded-full bg-black scale-0 group-hover:scale-150 transition-transform duration-700 ease-out z-10 origin-center" />
         </a>
       </div>
+      {/* <div className="absolute  left-[100px] bottom-[300px] ">
+        <img src="profile.png" className=" relative z-50 md:mb-96 h-52" />
+      </div> */}
     </div>
   );
 };

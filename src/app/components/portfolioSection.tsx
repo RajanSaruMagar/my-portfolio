@@ -30,8 +30,8 @@ export default function Portfolio() {
               muted
               playsInline
             >
-              <source src="/video1.webm" type="video/webm" />
-              <source src="/video1.mp4" type="video/mp4" />
+              <source src="/video.webm" type="video/webm" />
+              <source src="/video.mp4" type="video/mp4" />
             </video>
           </div>
           <div />

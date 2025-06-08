@@ -1,6 +1,17 @@
-import React from "react";
+"use client";
+import React, { useRef, useEffect } from "react";
 
 const ServiceSection = () => {
+  const videoRef1 = useRef<HTMLVideoElement>(null);
+  const videoRef2 = useRef<HTMLVideoElement>(null);
+  const videoRef3 = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoRef1.current) videoRef1.current.playbackRate = 0.6;
+    if (videoRef2.current) videoRef2.current.playbackRate = 0.6;
+    if (videoRef3.current) videoRef3.current.playbackRate = 0.6;
+  }, []);
+
   return (
     <div
       id="service"
@@ -29,9 +40,14 @@ const ServiceSection = () => {
       {/* Service items */}
       <div className="space-y-20 md:space-y-40 mt-10 md:mt-20">
         {/* Brand & Design */}
-        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20">
+        <div className="w-full min-h-[28rem] flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20">
           <video
-            src="video1.webm"
+            ref={videoRef1}
+            src="video1.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
             className="w-full md:w-1/2 h-64 sm:h-80 md:h-96 object-cover rounded-xl"
           ></video>
           <div className="md:pl-8 lg:pl-12">
@@ -41,7 +57,6 @@ const ServiceSection = () => {
                 Design
               </span>
             </p>
-
             <p className="text-[#969494] font-semibold text-sm md:text-base">
               Wide range of graphic design services, including{" "}
               <span className="text-indigo-600 underline">
@@ -55,9 +70,14 @@ const ServiceSection = () => {
         </div>
 
         {/* Website & Web app */}
-        <div className="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 lg:gap-20">
+        <div className="w-full min-h-[28rem] flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 lg:gap-20">
           <video
-            src="video1.webm"
+            ref={videoRef2}
+            src="video.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
             className="w-full md:w-1/2 h-64 sm:h-80 md:h-96 object-cover rounded-xl"
           ></video>
           <div className="md:pr-8 lg:pr-12">
@@ -80,10 +100,15 @@ const ServiceSection = () => {
         </div>
 
         {/* Social Media Management */}
-        <div className="flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20">
+        <div className="w-full min-h-[28rem] flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20">
           <video
-            src="video1.webm"
-            className="w-full md:w-1/2 h-64 sm:h-80 md:h-96 object-cover rounded-xl"
+            ref={videoRef3}
+            src="video2.mp4"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="w-full min-h-[28rem] md:w-1/2 h-64 sm:h-80 md:h-96 object-cover rounded-xl"
           ></video>
           <div className="md:pl-8 lg:pl-12">
             <p className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-4 md:mb-6 animate-glow">
