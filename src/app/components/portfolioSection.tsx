@@ -1,6 +1,6 @@
 "use client";
 import ScrollText from "./scroll";
-import ScrollFreezeShowcase from "./scrollEffect";
+import ScrollFreezeShowcase from "./DesignScroll";
 
 export default function Portfolio() {
   return (

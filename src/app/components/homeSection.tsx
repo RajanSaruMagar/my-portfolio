@@ -29,10 +29,10 @@ const HomeSection = () => {
     >
       {/* Video Background Section */}
       <div className="relative h-screen md:h-[85%] w-full px-10 py-5">
-        <div className="relative w-full h-full rounded-3xl overflow-hidden">
+        <div className="relative w-full h-[80vh] md:h-full rounded-3xl overflow-hidden">
           {/* Video */}
           <video
-            className="w-full  h-full object-cover  blur-sm "
+            className="w-full h-full object-cover blur-sm"
             src={videoSrc}
             autoPlay
             loop
@@ -43,14 +43,14 @@ const HomeSection = () => {
           <div className="absolute inset-0 flex flex-col justify-between p-10 z-10">
             {/* Top Row */}
             <div className="flex justify-between items-start">
-              <div className="text-9xl ">
+              <div className="text-7xl md:text-9xl">
                 New
                 <br />
-                <span className="italic font-playfair  text-9xl  pl-24">
+                <span className="italic font-playfair text-7xl  md:text-9xl pl-8 md:pl-24">
                   Vision
                 </span>
               </div>
-              <div className="w-48 h-24" />
+              {/* <div className="w-48 h-24" /> */}
             </div>
 
             {/* Bottom Row */}
@@ -77,28 +77,30 @@ const HomeSection = () => {
       </div>
 
       {/* Bottom CTA Section */}
-      <div className=" relative h-[15%] w-full flex justify-between items-center px-0 md:px-10">
-        <div className="text-xl md:text-4xl font-extralight leading-[17px] font-playfair ">
-          <span className="text-3xl md:text-5xl  ">D</span>ream
+      <div className="relative h-[15%] w-full flex justify-between items-center md:px-10">
+        <div className="text-xl md:text-4xl font-extralight leading-[17px] font-playfair">
+          <span className="text-3xl md:text-5xl">D</span>ream
           <br />
-          <span className="font-bold md:text-2xl pl-3  md:pl-10">
-            MACHINE
-          </span>{" "}
+          <span className="font-bold md:text-2xl pl-3 md:pl-10">MACHINE</span>
         </div>
-
         <a
           href="#contact"
-          className="relative overflow-hidden z-10 bg-white text-black font-semibold text-lg sm:text-xl md:text-2xl px-6 sm:px-8 md:px-10 py-2 md:py-4 rounded-full group transition-colors duration-700 ease-out whitespace-nowrap"
+          className="relative overflow-hidden bg-white text-black font-semibold text-lg sm:text-xl md:text-2xl px-6 sm:px-8 md:px-10 py-2 md:py-4 rounded-full group transition-colors duration-700 ease-out whitespace-nowrap"
         >
-          <span className="relative z-20 transition-colors duration-700 text-center hover:text-white whitespace-nowrap">
+          <span className="relative z-20 text-center transition-colors duration-700 group-hover:text-white whitespace-nowrap">
             Try Now
           </span>
-          <span className="absolute inset-0 rounded-full bg-black scale-0 group-hover:scale-150 transition-transform duration-700 ease-out z-10 origin-center" />
+          <span className="absolute inset-0 z-10 rounded-full bg-black scale-0 group-hover:scale-150 transition-transform duration-700 ease-out origin-center" />
         </a>
       </div>
-      {/* <div className="absolute  left-[100px] bottom-[300px] ">
-        <img src="profile.png" className=" relative z-50 md:mb-96 h-52" />
-      </div> */}
+
+      <div className="relative">
+        <div className="absolute left-1/2 bottom-[1px] transform -translate-x-1/2">
+          <img src="profile.png" className="h-40 md:h-[700px]" />
+        </div>
+      </div>
+      
+      
     </div>
   );
 };
