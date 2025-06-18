@@ -48,10 +48,24 @@ export default function Portfolio() {
       {/* Showcase Section */}
       <div className="text-white py-10 space-y-20">
         {/* Quote */}
-        <p className="text-md font-semibold text-indigo-500">
-          &quot;Your brand is what other people say about you when you&apos;re
-          not in the room.&quot; — Jeff Bezos
-        </p>
+       <div className="relative h-64 w-full overflow-hidden rounded-none md:rounded-xl">
+  <img
+    src="/branding.png"
+    className="absolute inset-0 w-full h-full object-cover opacity-50"
+    alt="Branding background"
+  />
+  <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-transparent" />
+  <p className="relative z-10 text-center text-xl md:text-3xl font-light text-indigo-200 leading-relaxed px-6 py-10 drop-shadow-lg">
+    &quot;Your brand is what other people say about you when you&apos;re not in the room.&quot;
+    <br />
+    <span className="block mt-4 text-base md:text-lg font-semibold text-white">
+      — Jeff Bezos
+    </span>
+  </p>
+</div>
+
+        {/* horizontal line  */}
+        <hr className="border-t-2 border-white/10 my-8" />
 
         {/* Big Title */}
         <p className="text-4xl sm:text-6xl md:text-7xl font-bold text-center uppercase tracking-wider animate-fade-in bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 bg-clip-text text-transparent animate-gradient bg-[200%] bg-no-repeat bg-[length:400%_100%]">

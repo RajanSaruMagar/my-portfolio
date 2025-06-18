@@ -48,7 +48,7 @@ const ServiceSection = () => {
             muted
             loop
             playsInline
-            className="w-full md:w-1/2 h-64 sm:h-80 md:h-96 object-cover rounded-xl"
+            className="w-full md:w-1/2 h-64 sm:h-80 md:h-96 object-contain rounded-xl"
           ></video>
           <div className="md:pl-8 lg:pl-12">
             <p className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-4 md:mb-6">
@@ -108,7 +108,7 @@ const ServiceSection = () => {
             muted
             loop
             playsInline
-            className="w-full min-h-[28rem] md:w-1/2 h-64 sm:h-80 md:h-96 object-cover rounded-xl"
+            className="w-full min-h-[28rem] md:w-1/2 h-64 sm:h-80 md:h-96 object-contain rounded-xl"
           ></video>
           <div className="md:pl-8 lg:pl-12">
             <p className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-4 md:mb-6 animate-glow">

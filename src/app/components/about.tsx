@@ -4,7 +4,7 @@ const AboutSection = () => {
   return (
     <section
       id="about"
-      className="bg-black h-screen flex justify-center items-center px-6 relative "
+      className="bg-black min-h-screen flex justify-center items-center px-6 relative pt-96 sm:pt-0 pb-20 "
     >
       <div className=" max-w-4xl flex flex-col lg:flex-row items-center gap-10 text-center md:text-left relative z-20 mb-40">
         {/* Image Section */}

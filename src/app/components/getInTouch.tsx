@@ -1,4 +1,9 @@
 "use client";
+import {
+  MapPinIcon,
+  PhoneIcon,
+  EnvelopeIcon,
+} from "@heroicons/react/24/outline";
 
 import React, { useState } from "react";
 
@@ -33,7 +38,7 @@ const GetInTouch = () => {
     <div id="contact" className="bg-[#0a0a0a] text-white px-6 md:px-20 py-24">
       {/* Heading */}
       <div className="space-y-3 mb-16 max-w-xl">
-        <p className="text-indigo-600 text-sm animate-pulse flex items-center gap-2">
+        <p className="text-green-600 text-sm animate-pulse flex items-center gap-2">
           <span className="text-sm inline-block leading-none">★</span>
           CONNECT WITH ME
         </p>
@@ -90,7 +95,10 @@ const GetInTouch = () => {
         {/* Info box */}
         <div
           className="bg-[#121212] p-6 rounded-xl shadow-lg space-y-5 max-h-[520px] overflow-y-auto scroll-smooth"
-          style={{ scrollbarWidth: "thin", scrollbarColor: "#4f46e5 transparent" }}
+          style={{
+            scrollbarWidth: "thin",
+            scrollbarColor: "#4f46e5 transparent",
+          }}
         >
           <p className="text-green-600 flex items-center gap-2 animate-pulse text-sm">
             <span className="h-2 w-2 bg-green-600 rounded-full" />
@@ -115,14 +123,24 @@ const GetInTouch = () => {
           </div>
 
           <p className="text-gray-400 text-sm leading-relaxed">
-            I design clean interfaces, craft intuitive user experiences, and build modern frontends. Let’s turn your idea into a bold digital presence.
+            I design clean interfaces, craft intuitive user experiences, and
+            build modern frontends. Let’s turn your idea into a bold digital
+            presence.
           </p>
 
-          <ul className="text-gray-300 text-sm space-y-1">
-            <li>✔️ Frontend Development (Next.js, Tailwind)</li>
-            <li>✔️ UI/UX Design & Prototyping</li>
-            <li>✔️ Social Media Campaigns</li>
-            <li>✔️ Content Writing & Personal Branding</li>
+          <ul className="text-gray-300 text-sm space-y-4">
+            <li className="flex items-center gap-2">
+              <MapPinIcon className="h-5 w-5 text-indigo-500" />
+              Devdaha-05, khaireni, Nepal
+            </li>
+            <li className="flex items-center gap-2">
+              <PhoneIcon className="h-5 w-5 text-indigo-500" />
+              +977 9817527972
+            </li>
+            <li className="flex items-center gap-2">
+              <EnvelopeIcon className="h-5 w-5 text-indigo-500" />
+              rajansaru789@gmail.com
+            </li>
           </ul>
 
           <a
@@ -144,7 +162,11 @@ const GetInTouch = () => {
                 alt="LinkedIn"
               />
             </a>
-            <a href="https://github.com/RajanSaruMagar" target="_blank" rel="noreferrer">
+            <a
+              href="https://github.com/RajanSaruMagar"
+              target="_blank"
+              rel="noreferrer"
+            >
               <img
                 className="h-5 w-5 filter invert brightness-200"
                 src="github.svg"
@@ -162,7 +184,11 @@ const GetInTouch = () => {
                 alt="Instagram"
               />
             </a>
-            <a href="https://x.com/rajan_saru29761" target="_blank" rel="noreferrer">
+            <a
+              href="https://x.com/rajan_saru29761"
+              target="_blank"
+              rel="noreferrer"
+            >
               <img
                 className="h-5 w-5 filter invert brightness-200"
                 src="twitter.svg"
