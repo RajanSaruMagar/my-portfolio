@@ -85,7 +85,8 @@ const HomeSection = () => {
       </div>
 
       {/* Bottom CTA Section */}
-      <div className="relative h-[15%] w-full flex justify-between items-center pt-8 sm:pt-0 px-2 md:px-10">
+      <div className="relative h-fit min-h-[100px] w-full flex justify-between items-center pt-4 sm:pt-0 px-2 md:px-10">
+
         <div className="text-base sm:text-xl md:text-4xl font-extralight leading-[17px] font-playfair">
           <span className="text-2xl sm:text-3xl md:text-5xl">D</span>ream
           <br />

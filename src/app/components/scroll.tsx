@@ -10,7 +10,6 @@ export default function ScrollText() {
     offset: ["start end", "end start"],
   });
 
-  // Create color transitions OUTSIDE of .map()
   const color1 = useTransform(
     scrollYProgress,
     [0.0, 0.15, 0.3],
@@ -42,24 +41,28 @@ export default function ScrollText() {
   const colors = [color1, color2, color3, color4];
 
   return (
-    <div ref={ref} className="z-10 text-center px-4">
-      <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-snug md:leading-tight space-y-2">
+    <div
+      ref={ref}
+      className="z-10 text-center px-4 py-16 flex flex-col items-center justify-center min-h-screen"
+    >
+      <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-relaxed space-y-2">
         {lines.map((text, index) => (
           <motion.span
             key={index}
-            className="block"
+            className="block break-words"
             style={{ color: colors[index] }}
           >
             {text}
           </motion.span>
         ))}
       </h1>
-    <a
-  href="#service"
-  className="block text-white text-xl mt-12 animate-bounce"
->
-  ↓ SCROLL DOWN ↓
-</a>
+
+      <a
+        href="#service"
+        className="text-white text-lg sm:text-xl mt-12 animate-bounce"
+      >
+        ↓ SCROLL DOWN ↓
+      </a>
     </div>
   );
 }
