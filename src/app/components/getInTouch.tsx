@@ -1,42 +1,88 @@
 "use client";
+import React, { useState, useRef } from "react";
 import {
   MapPinIcon,
   PhoneIcon,
   EnvelopeIcon,
 } from "@heroicons/react/24/outline";
 
-import React, { useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const GetInTouch = () => {
   const [fullName, setFullName] = useState("");
   const [formEmail, setFormEmail] = useState("");
   const [formMessage, setFormMessage] = useState("");
+  const [formSubmitting, setFormSubmitting] = useState(false);
+
+  // We use a ref for the form element so we can trigger submit programmatically
+  const formRef = useRef<HTMLFormElement>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify({
-        access_key: "553b649b-ef88-48d8-b3e4-025d670c9c94",
-        name: fullName,
-        email: formEmail,
-        message: formMessage,
-      }),
-    });
-    const result = await response.json();
-    if (result.success) {
-      alert("Success!");
-      console.log(result);
+    if (!fullName || !formEmail || !formMessage) {
+      toast.error("Please fill in all fields before submitting.");
+      return;
+    }
+    setFormSubmitting(true);
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "553b649b-ef88-48d8-b3e4-025d670c9c94",
+          name: fullName,
+          email: formEmail,
+          message: formMessage,
+        }),
+      });
+      const result = await response.json();
+      if (result.success) {
+        toast.success("Form submitted successfully!");
+        setFullName("");
+        setFormEmail("");
+        setFormMessage("");
+      } else {
+        toast.error("Failed to submit. Please try again.");
+      }
+    } catch {
+      toast.error("Submission error. Please try again.");
+    } finally {
+      setFormSubmitting(false);
+    }
+  }
+
+  function handleWorkTogetherClick() {
+    if (!fullName || !formEmail || !formMessage) {
+      toast.warn("Please fill in all fields before submitting.");
+    } else {
+      // Programmatically submit the form
+      formRef.current?.dispatchEvent(
+        new Event("submit", { cancelable: true, bubbles: true })
+      );
     }
   }
 
   return (
-    <div id="contact" className="bg-[#0a0a0a] text-white px-6 md:px-20 py-24">
-      {/* Heading */}
+    <div
+      id="contact"
+      className="bg-[#0a0a0a] text-white px-6 md:px-20 py-24 relative"
+    >
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+
       <div className="space-y-3 mb-16 max-w-xl">
         <p className="text-green-600 text-sm animate-pulse flex items-center gap-2">
           <span className="text-sm inline-block leading-none">★</span>
@@ -52,10 +98,9 @@ const GetInTouch = () => {
         </p>
       </div>
 
-      {/* Grid container */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
         {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-sm mb-1 text-gray-300">
               Full Name
@@ -63,8 +108,10 @@ const GetInTouch = () => {
             <input
               type="text"
               className="w-full bg-[#1a1a1a] border border-gray-700 text-white px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              value={fullName}
               onChange={(e) => setFullName(e.target.value)}
               required
+              disabled={formSubmitting}
             />
           </div>
           <div>
@@ -72,21 +119,26 @@ const GetInTouch = () => {
             <input
               type="email"
               className="w-full bg-[#1a1a1a] border border-gray-700 text-white px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              value={formEmail}
               onChange={(e) => setFormEmail(e.target.value)}
               required
+              disabled={formSubmitting}
             />
           </div>
           <div>
             <label className="block text-sm mb-1 text-gray-300">Message</label>
             <textarea
               className="w-full h-32 bg-[#1a1a1a] border border-gray-700 text-white px-4 py-3 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-indigo-600"
+              value={formMessage}
               onChange={(e) => setFormMessage(e.target.value)}
               required
+              disabled={formSubmitting}
             ></textarea>
           </div>
           <button
             type="submit"
-            className="px-8 py-3 rounded-md bg-indigo-600 hover:bg-indigo-700 transition font-medium shadow-lg"
+            disabled={formSubmitting}
+            className="px-8 py-3 rounded-md bg-indigo-600 hover:bg-white hover:text-black transition font-medium shadow-lg"
           >
             Submit
           </button>
@@ -94,14 +146,15 @@ const GetInTouch = () => {
 
         {/* Info box */}
         <div
-          className="bg-[#121212] p-6 rounded-xl shadow-lg space-y-5 max-h-[520px] overflow-y-auto scroll-smooth"
+          className="bg-[#121212] p-6 rounded-xl shadow-lg space-y-5 max-h-[520px] md:max-h-[680px] overflow-y-auto scroll-smooth
+                     scrollbar-thin scrollbar-thumb-indigo-600 scrollbar-track-transparent"
           style={{
             scrollbarWidth: "thin",
             scrollbarColor: "#4f46e5 transparent",
           }}
         >
-          <p className="text-green-600 flex items-center gap-2 animate-pulse text-sm">
-            <span className="h-2 w-2 bg-green-600 rounded-full" />
+          <p className="text-green-600 flex items-center gap-2 text-sm">
+            <span className="h-3 w-3 bg-green-600 rounded-full animate-pulse" />
             Available for work
           </p>
 
@@ -131,7 +184,7 @@ const GetInTouch = () => {
           <ul className="text-gray-300 text-sm space-y-4">
             <li className="flex items-center gap-2">
               <MapPinIcon className="h-5 w-5 text-indigo-500" />
-              Devdaha-05, khaireni, Nepal
+              Devdaha-05, Khaireni, Nepal
             </li>
             <li className="flex items-center gap-2">
               <PhoneIcon className="h-5 w-5 text-indigo-500" />
@@ -145,7 +198,11 @@ const GetInTouch = () => {
 
           <a
             href="#contact"
-            className="inline-block text-sm px-4 py-2 mt-2 rounded-md bg-indigo-600 hover:bg-indigo-700 transition font-medium shadow"
+            onClick={(e) => {
+              e.preventDefault();
+              handleWorkTogetherClick();
+            }}
+            className="inline-block text-sm px-4 py-2 mt-2 rounded-md bg-indigo-600 hover:bg-indigo-700 transition font-medium shadow cursor-pointer select-none"
           >
             Let&apos;s Work Together
           </a>
@@ -155,9 +212,10 @@ const GetInTouch = () => {
               href="https://www.linkedin.com/in/rajan-saru-magar-6a168230a/"
               target="_blank"
               rel="noreferrer"
+              className="transition-transform hover:scale-110"
             >
               <img
-                className="h-5 w-5 filter invert brightness-200"
+                className="h-5 w-5 filter invert brightness-200 hover:brightness-125 transition"
                 src="linkedin.svg"
                 alt="LinkedIn"
               />
@@ -166,9 +224,10 @@ const GetInTouch = () => {
               href="https://github.com/RajanSaruMagar"
               target="_blank"
               rel="noreferrer"
+              className="transition-transform hover:scale-110"
             >
               <img
-                className="h-5 w-5 filter invert brightness-200"
+                className="h-5 w-5 filter invert brightness-200 hover:brightness-125 transition"
                 src="github.svg"
                 alt="GitHub"
               />
@@ -177,9 +236,10 @@ const GetInTouch = () => {
               href="https://www.instagram.com/rjan_mgrx/"
               target="_blank"
               rel="noreferrer"
+              className="transition-transform hover:scale-110"
             >
               <img
-                className="h-5 w-5 filter invert brightness-200"
+                className="h-5 w-5 filter invert brightness-200 hover:brightness-125 transition"
                 src="instagram.svg"
                 alt="Instagram"
               />
@@ -188,9 +248,10 @@ const GetInTouch = () => {
               href="https://x.com/rajan_saru29761"
               target="_blank"
               rel="noreferrer"
+              className="transition-transform hover:scale-110"
             >
               <img
-                className="h-5 w-5 filter invert brightness-200"
+                className="h-5 w-5 filter invert brightness-200 hover:brightness-125 transition"
                 src="twitter.svg"
                 alt="Twitter"
               />

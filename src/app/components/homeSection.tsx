@@ -23,12 +23,9 @@ const HomeSection = () => {
   }, []);
 
   return (
-    <div
-      id="home"
-       className="text-white h-screen flex flex-col bg-black"
-    >
+    <div id="home" className="text-white h-screen flex flex-col bg-black">
       {/* Video Background Section */}
-      <div className="relative h-screen md:h-[85%] w-full px-10 py-5">
+      <div className="relative h-[70%]  md:h-[85%] w-full px-10 py-5">
         <div className="relative w-full h-[85vh] md:h-full rounded-3xl overflow-hidden">
           {/* Video */}
           <video
@@ -85,8 +82,7 @@ const HomeSection = () => {
       </div>
 
       {/* Bottom CTA Section */}
-      <div className="relative h-fit min-h-[100px] w-full flex justify-between items-center pt-4 sm:pt-0 px-2 md:px-10">
-
+      <div className="relative w-full flex justify-between items-center pt-4 sm:pt-0 px-2 md:px-10 mt-[23%] md:mt-0">
         <div className="text-base sm:text-xl md:text-4xl font-extralight leading-[17px] font-playfair">
           <span className="text-2xl sm:text-3xl md:text-5xl">D</span>ream
           <br />

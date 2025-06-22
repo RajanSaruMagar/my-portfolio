@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import NewLayout from "./new-layout";
 
 export const metadata: Metadata = {
   title: "Rajan Saru Magar | Portfolio",
@@ -48,7 +49,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning={false}>
-      <body>{children}</body>
+      <body>
+        <NewLayout>{children}</NewLayout>
+      </body>
     </html>
   );
 }

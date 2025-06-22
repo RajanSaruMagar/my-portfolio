@@ -2,9 +2,12 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 
+const line1 = ["Welcome", "to", "my"];
+const line2 = ["Portfolio", "Website"];
+
 export default function LandingPage() {
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <div className="relative w-full min-h-[100dvh] overflow-hidden touch-none overscroll-none">
       {/* Background Video */}
       <video
         autoPlay
@@ -59,19 +62,42 @@ export default function LandingPage() {
           ))}
         </div>
 
-        {/* Welcome Text */}
-        <Link
-          href="/Homepage"
-          className="text-4xl md:text-6xl font-semibold text-white transition hover:opacity-90"
-        >
-          Welcome To My
-          <p className="pt-4 ">Portfolio Website</p>
+        {/* Two-Line Word-by-Word Animation */}
+        <Link href="/Homepage" className="transition hover:opacity-90">
+          <div className="text-white font-semibold text-4xl md:text-6xl space-y-2">
+            <div className="flex flex-wrap justify-center gap-x-3">
+              {line1.map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: i * 0.25 }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </div>
+            <div className="flex flex-wrap justify-center gap-x-3">
+              {line2.map((word, i) => (
+                <motion.span
+                  key={i}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.5, delay: (line1.length + i) * 0.25 }}
+                >
+                  {word}
+                </motion.span>
+              ))}
+            </div>
+          </div>
         </Link>
 
         {/* Call to Action */}
-        <button className="mt-4 text-white/80 hover:text-white animate-bounce transition">
-          ↓ Explore
-        </button>
+        <div className="overflow-hidden">
+          <button className="mt-4 text-white/80 hover:text-white animate-bounce transition">
+            ↓ Explore
+          </button>
+        </div>
       </motion.div>
     </div>
   );
