@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -7,12 +7,20 @@ const ServiceSection = () => {
   const videoRef1 = useRef<HTMLVideoElement>(null);
   const videoRef2 = useRef<HTMLVideoElement>(null);
   const videoRef3 = useRef<HTMLVideoElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     AOS.init({ once: true });
     if (videoRef1.current) videoRef1.current.playbackRate = 0.6;
     if (videoRef2.current) videoRef2.current.playbackRate = 0.6;
     if (videoRef3.current) videoRef3.current.playbackRate = 0.6;
+  }, []);
+
+   useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth <= 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
   }, []);
 
   return (
@@ -54,7 +62,7 @@ const ServiceSection = () => {
         {/* Brand & Design */}
         <div
           className="w-full min-h-[28rem] flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-20 p-6 rounded-xl border border-indigo-700 bg-black/70"
-          data-aos="fade-right"
+          {...(!isMobile && { "data-aos": "fade-right" })}
         >
           <video
             ref={videoRef1}
@@ -85,7 +93,7 @@ const ServiceSection = () => {
         {/* Website & Web App */}
         <div
           className="w-full min-h-[28rem] flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 lg:gap-20 p-6 rounded-xl border border-indigo-700 bg-black/70"
-          data-aos="fade-left"
+           {...(!isMobile && { "data-aos": "fade-left" })}
         >
           <video
             ref={videoRef2}
