@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import AnimatedCursor from "./components/AnimatedCursor";
 
 const NewLayout = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
@@ -10,7 +11,12 @@ const NewLayout = ({ children }: { children: React.ReactNode }) => {
       once: false,
     });
   }, []);
-  return <div>{children}</div>;
+  return (
+    <div>
+      <AnimatedCursor />
+      {children}
+    </div>
+  );
 };
 
 export default NewLayout;

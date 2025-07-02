@@ -1,5 +1,6 @@
 "use client";
-import React, { useState, useRef } from "react";
+
+import React, { useState, useEffect } from "react";
 import {
   MapPinIcon,
   PhoneIcon,
@@ -9,22 +10,55 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+import { z } from "zod";
+
+const schema = z.object({
+  fullName: z.string().min(1, "Full Name is required"),
+  formEmail: z.string().min(1, "Email is required").email("Invalid email address"),
+  formMessage: z.string().min(1, "Message is required"),
+});
+
+type FormData = z.infer<typeof schema>;
+
 const GetInTouch = () => {
-  const [fullName, setFullName] = useState("");
-  const [formEmail, setFormEmail] = useState("");
-  const [formMessage, setFormMessage] = useState("");
+  const [formData, setFormData] = useState<FormData>({
+    fullName: "",
+    formEmail: "",
+    formMessage: "",
+  });
+  const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>(
+    {}
+  );
   const [formSubmitting, setFormSubmitting] = useState(false);
 
-  // We use a ref for the form element so we can trigger submit programmatically
-  const formRef = useRef<HTMLFormElement>(null);
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    if (!fullName || !formEmail || !formMessage) {
-      toast.error("Please fill in all fields before submitting.");
+
+    // Validate formData with Zod
+    const result = schema.safeParse(formData);
+
+    if (!result.success) {
+      // Extract errors
+      const fieldErrors: Partial<Record<keyof FormData, string>> = {};
+      result.error.errors.forEach(({ path, message }) => {
+        const key = path[0] as keyof FormData;
+        if (key) fieldErrors[key] = message;
+      });
+      setErrors(fieldErrors);
+      toast.error("Please fix the errors before submitting.");
       return;
     }
+
+    setErrors({});
     setFormSubmitting(true);
+
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
@@ -34,17 +68,17 @@ const GetInTouch = () => {
         },
         body: JSON.stringify({
           access_key: "553b649b-ef88-48d8-b3e4-025d670c9c94",
-          name: fullName,
-          email: formEmail,
-          message: formMessage,
+          name: formData.fullName.trim(),
+          email: formData.formEmail.trim(),
+          message: formData.formMessage.trim(),
         }),
       });
+
       const result = await response.json();
+
       if (result.success) {
         toast.success("Form submitted successfully!");
-        setFullName("");
-        setFormEmail("");
-        setFormMessage("");
+        setFormData({ fullName: "", formEmail: "", formMessage: "" });
       } else {
         toast.error("Failed to submit. Please try again.");
       }
@@ -52,17 +86,6 @@ const GetInTouch = () => {
       toast.error("Submission error. Please try again.");
     } finally {
       setFormSubmitting(false);
-    }
-  }
-
-  function handleWorkTogetherClick() {
-    if (!fullName || !formEmail || !formMessage) {
-      toast.warn("Please fill in all fields before submitting.");
-    } else {
-      // Programmatically submit the form
-      formRef.current?.dispatchEvent(
-        new Event("submit", { cancelable: true, bubbles: true })
-      );
     }
   }
 
@@ -81,14 +104,16 @@ const GetInTouch = () => {
         draggable
         pauseOnHover
         theme="dark"
+        role="alert"
+        aria-live="assertive"
       />
 
-      <div className="space-y-3 mb-16 max-w-xl">
+      {/* Heading Section */}
+      <div className="space-y-3 mb-16 max-w-xl" data-aos="zoom-in">
         <p className="text-green-600 text-sm animate-pulse flex items-center gap-2">
           <span className="text-sm inline-block leading-none">★</span>
           CONNECT WITH ME
         </p>
-
         <p className="text-4xl font-bold tracking-tight">
           Let&apos;s start a project together
         </p>
@@ -98,60 +123,133 @@ const GetInTouch = () => {
         </p>
       </div>
 
+      {/* Form + Info Box Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Form */}
-        <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+        {/* Contact Form */}
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6"
+          data-aos="fade-up"
+          noValidate
+        >
           <div>
-            <label className="block text-sm mb-1 text-gray-300">
+            <label
+              htmlFor="fullName"
+              className="block text-sm mb-1 text-gray-300"
+            >
               Full Name
             </label>
             <input
+              id="fullName"
+              name="fullName"
               type="text"
-              className="w-full bg-[#1a1a1a] border border-gray-700 text-white px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              required
+              className={`w-full bg-[#1a1a1a] border px-4 py-3 rounded-md focus:outline-none focus:ring-2 ${
+                errors.fullName
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-gray-700 focus:ring-indigo-600"
+              } text-white`}
+              value={formData.fullName}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, fullName: e.target.value }))
+              }
+              aria-invalid={!!errors.fullName}
+              aria-describedby={errors.fullName ? "fullName-error" : undefined}
               disabled={formSubmitting}
             />
+            {errors.fullName && (
+              <p
+                id="fullName-error"
+                className="mt-1 text-xs text-red-500"
+                role="alert"
+              >
+                {errors.fullName}
+              </p>
+            )}
           </div>
+
           <div>
-            <label className="block text-sm mb-1 text-gray-300">Email</label>
+            <label
+              htmlFor="formEmail"
+              className="block text-sm mb-1 text-gray-300"
+            >
+              Email
+            </label>
             <input
+              id="formEmail"
+              name="formEmail"
               type="email"
-              className="w-full bg-[#1a1a1a] border border-gray-700 text-white px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-600"
-              value={formEmail}
-              onChange={(e) => setFormEmail(e.target.value)}
-              required
+              className={`w-full bg-[#1a1a1a] border px-4 py-3 rounded-md focus:outline-none focus:ring-2 ${
+                errors.formEmail
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-gray-700 focus:ring-indigo-600"
+              } text-white`}
+              value={formData.formEmail}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, formEmail: e.target.value }))
+              }
+              aria-invalid={!!errors.formEmail}
+              aria-describedby={errors.formEmail ? "formEmail-error" : undefined}
               disabled={formSubmitting}
             />
+            {errors.formEmail && (
+              <p
+                id="formEmail-error"
+                className="mt-1 text-xs text-red-500"
+                role="alert"
+              >
+                {errors.formEmail}
+              </p>
+            )}
           </div>
+
           <div>
-            <label className="block text-sm mb-1 text-gray-300">Message</label>
+            <label
+              htmlFor="formMessage"
+              className="block text-sm mb-1 text-gray-300"
+            >
+              Message
+            </label>
             <textarea
-              className="w-full h-32 bg-[#1a1a1a] border border-gray-700 text-white px-4 py-3 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-indigo-600"
-              value={formMessage}
-              onChange={(e) => setFormMessage(e.target.value)}
-              required
+              id="formMessage"
+              name="formMessage"
+              className={`w-full h-32 bg-[#1a1a1a] border px-4 py-3 rounded-md resize-none focus:outline-none focus:ring-2 ${
+                errors.formMessage
+                  ? "border-red-500 focus:ring-red-500"
+                  : "border-gray-700 focus:ring-indigo-600"
+              } text-white`}
+              value={formData.formMessage}
+              onChange={(e) =>
+                setFormData((prev) => ({ ...prev, formMessage: e.target.value }))
+              }
+              aria-invalid={!!errors.formMessage}
+              aria-describedby={errors.formMessage ? "formMessage-error" : undefined}
               disabled={formSubmitting}
             ></textarea>
+            {errors.formMessage && (
+              <p
+                id="formMessage-error"
+                className="mt-1 text-xs text-red-500"
+                role="alert"
+              >
+                {errors.formMessage}
+              </p>
+            )}
           </div>
+
           <button
             type="submit"
             disabled={formSubmitting}
             className="px-8 py-3 rounded-md bg-indigo-600 hover:bg-white hover:text-black transition font-medium shadow-lg"
           >
-            Submit
+            {formSubmitting ? "Submitting..." : "Submit"}
           </button>
         </form>
 
-        {/* Info box */}
+        {/* Info Box */}
         <div
-          className="bg-[#121212] p-6 rounded-xl shadow-lg space-y-5 max-h-[520px] md:max-h-[680px] overflow-y-auto scroll-smooth
-                     scrollbar-thin scrollbar-thumb-indigo-600 scrollbar-track-transparent"
-          style={{
-            scrollbarWidth: "thin",
-            scrollbarColor: "#4f46e5 transparent",
-          }}
+          className="bg-[#121212] p-6 rounded-xl shadow-lg space-y-5 max-h-[520px] md:max-h-[680px] overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-indigo-600 scrollbar-track-transparent"
+          style={{ scrollbarWidth: "thin", scrollbarColor: "#4f46e5 transparent" }}
+          data-aos="fade-up"
         >
           <p className="text-green-600 flex items-center gap-2 text-sm">
             <span className="h-3 w-3 bg-green-600 rounded-full animate-pulse" />
@@ -167,18 +265,14 @@ const GetInTouch = () => {
           </div>
 
           <div className="space-y-1">
-            <h3 className="text-xl font-semibold text-white">
-              Rajan Saru Magar
-            </h3>
+            <h3 className="text-xl font-semibold text-white">Rajan Saru Magar</h3>
             <p className="text-sm text-gray-400">
               Frontend Developer • Graphic Designer • UI/UX
             </p>
           </div>
 
           <p className="text-gray-400 text-sm leading-relaxed">
-            I design clean interfaces, craft intuitive user experiences, and
-            build modern frontends. Let’s turn your idea into a bold digital
-            presence.
+            I design clean interfaces, craft intuitive user experiences, and build modern frontends. Let’s turn your idea into a bold digital presence.
           </p>
 
           <ul className="text-gray-300 text-sm space-y-4">
@@ -198,10 +292,7 @@ const GetInTouch = () => {
 
           <a
             href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              handleWorkTogetherClick();
-            }}
+            onClick={(e) => e.preventDefault()}
             className="inline-block text-sm px-4 py-2 mt-2 rounded-md bg-indigo-600 hover:bg-indigo-700 transition font-medium shadow cursor-pointer select-none"
           >
             Let&apos;s Work Together

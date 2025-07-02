@@ -1,4 +1,5 @@
 import React from "react";
+import "aos/dist/aos.css";
 
 const AboutSection = () => {
   return (
@@ -10,7 +11,7 @@ const AboutSection = () => {
         {/* Image Section */}
         <div
           className="w-full max-w-[80%] sm:max-w-[300px] aspect-[3/4] mx-auto"
-          // data-aos="fade-up"
+          data-aos="fade-up"
         >
           <img
             src="about.png"
@@ -22,7 +23,7 @@ const AboutSection = () => {
         {/* text section  */}
         <div
           className="text-center md:text-left space-y-4"
-          // data-aos="fade-up"
+          data-aos="fade-up"
         >
           <p className="text-lg  font-semibold text-gray-200">Hi There 👋</p>
           <h2 className="text-2xl font-bold text-gray-200">

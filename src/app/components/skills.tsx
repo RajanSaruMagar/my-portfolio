@@ -1,6 +1,9 @@
 "use client";
 
+import { useEffect } from "react";
 import { Sparkles } from "lucide-react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function SkillsCarousel() {
   const skills = [
@@ -25,9 +28,14 @@ export default function SkillsCarousel() {
 
   const scrollingSkills = [...skills, ...skills];
 
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
+
   return (
-    <div className="relative bg-black py-20 flex flex-col items-center ">
-      <div className="text-center mb-12">
+    <div className="relative bg-black py-20 flex flex-col items-center overflow-hidden">
+      {/* Title */}
+      <div className="text-center mb-12" data-aos="flip-up">
         <div className="flex items-center justify-center gap-2 mb-2">
           <Sparkles className="text-indigo-500" size={22} />
           <span className="text-sm tracking-wide text-indigo-400 uppercase">
@@ -38,20 +46,22 @@ export default function SkillsCarousel() {
           Skills & Tools
         </h2>
         <p className="text-gray-400 mt-2 text-sm max-w-md mx-auto">
-          A curated blend of technologies & design tools I use to bring ideas to
-          life.
+          A curated blend of technologies & design tools I use to bring ideas to life.
         </p>
       </div>
 
-      {/* Line + Carousel + Line */}
-      <div className="w-full max-w-6xl space-y-6">
+      {/* Lines + Scrolling Skills */}
+      <div className="w-full max-w-6xl space-y-6" data-aos="fade-up">
         {/* Top Line */}
         <div className="h-px bg-white/10" />
 
+        {/* Carousel */}
         <div className="relative w-full max-w-7xl mx-auto overflow-hidden px-4">
+          {/* Gradient overlays */}
           <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-black to-transparent z-10" />
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-black to-transparent z-10" />
 
+          {/* Scrolling container */}
           <div className="flex gap-6 animate-scroll cursor-pointer px-8">
             {scrollingSkills.map((skill, index) => {
               const isDarkLogo =
@@ -83,6 +93,7 @@ export default function SkillsCarousel() {
         <div className="h-px bg-white/10" />
       </div>
 
+      {/* Scroll Animation */}
       <style jsx>{`
         @keyframes scroll {
           0% {

@@ -7,10 +7,12 @@ import ServiceSection from "../components/service";
 import NavBarSection from "../components/navBar";
 import SkillsCarousel from "../components/skills";
 
+
 const Homepage = () => {
   return (
     <>
       <div>
+        
         <NavBarSection />
         <HomeSection />
         <AboutSection  />
