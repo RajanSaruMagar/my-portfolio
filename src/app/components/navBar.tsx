@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Menu, X, Home, User, Briefcase, Layers, Mail } from "lucide-react";
 
 const NavBarSection = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen , setIsOpen] = useState(false);
   const [showNavbar, setShowNavbar] = useState(false);
 
   const navLinks = [
@@ -22,7 +22,7 @@ const NavBarSection = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.innerWidth >= 768) {
+      if (window.innerWidth >= 768) { 
         setShowNavbar(window.scrollY > window.innerHeight);
       } else {
         setShowNavbar(false);
