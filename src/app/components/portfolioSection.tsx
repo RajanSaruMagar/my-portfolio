@@ -2,6 +2,8 @@
 import { useEffect } from "react";
 import ScrollText from "./scroll";
 import ScrollFreezeShowcase from "./DesignScroll";
+import ProjectSection from "../components/project";
+
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -92,6 +94,7 @@ export default function Portfolio() {
           <ScrollFreezeShowcase />
         </div>
       </div>
+      <ProjectSection/>
     </div>
   );
 }

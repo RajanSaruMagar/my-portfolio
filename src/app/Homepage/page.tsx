@@ -18,6 +18,7 @@ const Homepage = () => {
         <AboutSection  />
         <SkillsCarousel />
         <PortfolioSection />
+        
         <ServiceSection />
         <GetInTouch />
       </div>
