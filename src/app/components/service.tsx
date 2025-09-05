@@ -102,7 +102,7 @@ const ServiceSection = () => {
             muted
             loop
             playsInline
-            className="w-full md:w-1/2 h-64 sm:h-80 md:h-96 object-cover rounded-xl bg-white/10"
+            className="w-full md:w-1/2 h-64 sm:h-80 md:h-96  rounded-xl bg-white/10"
           />
           <div className="md:pr-6 lg:pr-8 max-w-xl flex flex-col justify-center min-h-[24rem]">
             <p className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-4 md:mb-6">

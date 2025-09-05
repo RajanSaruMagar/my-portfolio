@@ -21,6 +21,7 @@ const Homepage = () => {
         
         <ServiceSection />
         <GetInTouch />
+        
       </div>
     </>
   );
