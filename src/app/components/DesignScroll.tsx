@@ -9,7 +9,6 @@ const texts = [
   "Book Cover Design",
 ];
 
-// Base styles for desktop, mobile overrides for mobile layout
 const imageSets = [
   [
     {
@@ -37,11 +36,7 @@ const imageSets = [
     {
       src: "/package2.png",
       style: { left: "50%", bottom: "10%", transform: "translateX(-50%)" },
-      mobileStyle: {
-        left: "50%",
-        bottom: "15%",
-        transform: "translateX(-50%)",
-      },
+      mobileStyle: { left: "50%", bottom: "15%", transform: "translateX(-50%)" },
     },
     {
       src: "/package3.png",
@@ -70,11 +65,7 @@ const imageSets = [
     {
       src: "/book1.png",
       style: { left: "50%", bottom: "10%", transform: "translateX(-50%)" },
-      mobileStyle: {
-        left: "50%",
-        bottom: "10%",
-        transform: "translateX(-50%)",
-      },
+      mobileStyle: { left: "50%", bottom: "10%", transform: "translateX(-50%)" },
     },
     {
       src: "/book2.png",
@@ -113,10 +104,7 @@ const ScrollFreezeShowcase = () => {
         if (!section) return;
         const rect = section.getBoundingClientRect();
         const windowHeight = window.innerHeight;
-        const progress = Math.min(
-          Math.max((windowHeight - rect.top) / section.offsetHeight, 0),
-          1
-        );
+        const progress = Math.min(Math.max((windowHeight - rect.top) / section.offsetHeight, 0), 1);
         setScrollProgress(progress);
       });
     };
@@ -132,7 +120,6 @@ const ScrollFreezeShowcase = () => {
   const activeIndex = Math.floor(exactIndex);
   const [firstWord, secondWord] = texts[activeIndex]?.split(" ") || [];
 
-  // Responsive sizes for images
   const getResponsiveSize = () => {
     if (width < 640) return 120;
     if (width < 1024) return 180;
@@ -148,18 +135,13 @@ const ScrollFreezeShowcase = () => {
             const offset = i - exactIndex;
             const baseTranslateY = offset * 100;
 
-            const opacity = 1 - Math.min(Math.abs(offset), 1);
+            // Improved opacity: min 0.3, max 1
+            const opacity = 0.3 + (1 - Math.min(Math.abs(offset), 1)) * 0.7;
 
             if (width < 1024) {
-              // Mobile/tablet: stack sets vertically with translateY & flex-wrap images
-
-              // Fix for package design (index 1) on mobile: limit upward translateY to -5vh max
+              // Mobile/tablet: stack sets vertically
               let mobileTranslateY = baseTranslateY;
-              if (i === 1) {
-                const maxMobileUpwardTranslate = -5;
-                if (baseTranslateY < maxMobileUpwardTranslate)
-                  mobileTranslateY = maxMobileUpwardTranslate;
-              }
+              if (i === 1 && baseTranslateY < -5) mobileTranslateY = -5;
 
               return (
                 <div
@@ -197,19 +179,16 @@ const ScrollFreezeShowcase = () => {
               );
             }
 
-            // Desktop: absolute positioned images with scroll transform & opacity
+            // Desktop: absolute positioned images
             return images.map((img, j) => {
               const baseStyle = img.style;
-
               return (
                 <div
                   key={`${i}-${j}`}
                   className="absolute rounded-2xl shadow-2xl transition-transform duration-500 ease-out will-change-transform overflow-hidden"
                   style={{
                     ...baseStyle,
-                    transform: `${
-                      baseStyle.transform || ""
-                    } translateY(${baseTranslateY}vh)`,
+                    transform: `${baseStyle.transform || ""} translateY(${baseTranslateY}vh)`,
                     opacity,
                     width: `${getResponsiveSize()}px`,
                     height: `${getResponsiveSize() * 1.2}px`,
@@ -231,14 +210,12 @@ const ScrollFreezeShowcase = () => {
           })}
         </div>
 
-        {/* Responsive text container */}
+        {/* Text overlay */}
         <div className="relative z-10 flex h-full items-center justify-center pointer-events-none">
           <p
             className="text-center font-bold text-white/20 leading-none transition-all duration-300
                 text-[18vw] sm:text-[14vw] md:text-[12vw] lg:text-[10vw] xl:text-[9vw] max-w-full px-2 sm:px-0"
-            style={{
-              marginTop: width < 640 ? "5vh" : "0",
-            }}
+            style={{ marginTop: width < 640 ? "5vh" : "0" }}
           >
             {firstWord?.toUpperCase()}
             <br />
@@ -252,7 +229,7 @@ const ScrollFreezeShowcase = () => {
           </p>
         </div>
 
-        {/* Responsive sidebar navigation */}
+        {/* Sidebar navigation */}
         <div className="sticky bottom-10 left-4 md:left-10 z-20 text-white text-sm md:text-base font-medium max-w-xs sm:max-w-md">
           <p className="mb-4 text-white/70 tracking-wide uppercase">
             Explore my visual design journey

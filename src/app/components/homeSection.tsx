@@ -141,16 +141,17 @@ const HomeSection = () => {
       </div>
 
       {/* Profile Image with smooth fade & scale animation */}
-      <div className="relative z-40">
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 z-40">
-          <img
-            src="profile.png"
-            className={`h-60 sm:h-[400px] md:h-[400px] lg:h-[700px] transition-all duration-1000 ease-out ${
-              showProfile ? "opacity-100 scale-100" : "opacity-0 scale-75"
-            }`}
-          />
-        </div>
-      </div>
+      <div className="relative z-40 h-screen">
+  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 z-40">
+    <img
+      src="profile.png"
+      className={`h-60 sm:h-[400px] md:h-[400px] lg:h-[700px] transition-all duration-1000 ease-out ${
+        showProfile ? "opacity-100 scale-100" : "opacity-0 scale-75"
+      }`}
+    />
+  </div>
+</div>
+
     </div>
   );
 };
