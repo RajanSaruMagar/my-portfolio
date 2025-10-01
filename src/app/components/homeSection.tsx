@@ -1,157 +1,177 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-
+import React from "react";
 
 const HomeSection = () => {
-  // State to control which video to show based on user location
-  const [videoSrc, setVideoSrc] = useState("/back.mp4");
-
-  // State to control profile image animation visibility
-  const [showProfile, setShowProfile] = useState(false);
-
-  useEffect(() => {
-    // Fetch user location via IP API to decide which video to show
-    const fetchLocation = async () => {
-      try {
-        const res = await fetch("https://ipapi.co/json/");
-        const data = await res.json();
-        const region = data?.continent_code || "";
-
-        // Show alternate video if user is NOT in Asia
-        if (region !== "AS") setVideoSrc("/back1.mp4");
-      } catch (error) {
-        console.error("Failed to fetch location:", error);
-      }
-    };
-
-    fetchLocation();
-
-    // Initialize AOS (Animate On Scroll) library with custom settings:
-    // duration: 600ms (faster animations globally)
-    // once: true (animation only happens once per element)
-    AOS.init({ duration: 600, once: true });
-
-    // Trigger profile image appearance animation with a slight delay
-    setTimeout(() => {
-      setShowProfile(true);
-    }, 200); // 200ms delay for smooth entrance
-  }, []);
-
   return (
-    <div id="home" className="text-white h-screen flex flex-col bg-black">
-      {/* Video Background Section */}
-      <div className="relative h-[70%] md:h-[85%] w-full px-10 py-5">
-        {/* Container with fade animation */}
+    <div
+      className="bg-gray-100 text-black min-h-screen w-full flex justify-center items-center relative overflow-hidden"
+      id="home"
+    >
+      {/* Radial Gradient Background */}
+      <div className="absolute inset-0 bg-gradient-radial opacity-20 pointer-events-none"></div>
+
+      {/* Floating Geometric Shapes */}
+      {Array.from({ length: 10 }).map((_, i) => (
         <div
-          className="relative w-full h-[75vh] md:h-full rounded-3xl overflow-hidden"
-          data-aos="fade"
+          key={i}
+          className={`absolute pointer-events-none opacity-30 animate-bounce-slow`}
+          style={{
+            width: `${Math.random() * 25 + 10}px`,
+            height: `${Math.random() * 25 + 10}px`,
+            top: `${Math.random() * 90}%`,
+            left: `${Math.random() * 90}%`,
+            backgroundColor: ["#F87171", "#34D399", "#60A5FA", "#FBBF24"][
+              Math.floor(Math.random() * 4)
+            ],
+            borderRadius: Math.random() > 0.5 ? "50%" : "0%",
+            animationDelay: `${Math.random() * 3}s`,
+          }}
+        />
+      ))}
+
+      {/* Floating Circle Badge */}
+      <div className="floating-badge absolute w-28 h-28 md:w-36 md:h-36 xl:w-40 xl:h-40 rounded-full border-2 border-black flex justify-center items-center bg-black z-20">
+        <svg viewBox="0 0 200 200" className="w-full h-full text-white">
+          <defs>
+            <path
+              id="circlePath"
+              d="M 100, 100 m -75, 0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0"
+            />
+          </defs>
+          <text fill="white" fontSize="12" fontFamily="cursive">
+            <textPath href="#circlePath" startOffset="0%">
+              ✦ Best for your choice since 2024 ✦ Creative Design ✦ Agency ✦ Excellence ✦
+            </textPath>
+          </text>
+        </svg>
+        {/* Downward Arrow */}
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute w-6 h-6 md:w-8 md:h-8 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
         >
-          {/* Background video with blur */}
-          <video
-            className="w-full h-full object-cover blur-sm"
-            src={videoSrc}
-            autoPlay
-            loop
-            muted
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m0 0l-6-6m6 6l6-6" />
+        </svg>
+      </div>
 
-          {/* Overlay Text with zoom-in animation */}
-          <div
-            className="absolute inset-0 flex flex-col justify-between p-3 sm:p-10 z-10"
-            data-aos="zoom-in"
-          >
-            {/* Top Text Row */}
-            <div className="flex justify-between items-start">
-              <div className="text-5xl md:text-9xl">
-                New
-                <br />
-                <span className="italic font-playfair text-7xl md:text-9xl pl-5 md:pl-24">
-                  Vision
-                </span>
-              </div>
-            </div>
+      {/* Content Container */}
+      <div className="space-y-10 z-10">
+        {/* First Row */}
+        <div className="flex flex-col sm:flex-row justify-center items-center lg:items-start gap-6 sm:gap-10 xl:gap-20">
+          <div className="overflow-hidden rounded-full w-[180px] sm:w-[200px] xl:w-[300px] h-20 sm:h-24 xl:h-32 shadow-lg">
+            <img
+              src="pic.jpg"
+              className="w-full h-full object-cover scale-125 transition-transform duration-500 hover:scale-150"
+            />
+          </div>
+          <span className="galada text-5xl sm:text-6xl md:text-7xl xl:text-9xl font-bold animate-fadeIn text-center lg:mt-4">
+            Creative Designer
+          </span>
+        </div>
 
-            {/* Bottom Text Row */}
-            <div className="flex justify-between items-end">
-              {/* Left side paragraph with fade-up animation */}
-              <div
-                className="hidden md:block max-w-md text-xl text-gray-200"
-                data-aos="fade-up"
-              >
-                <span className="opacity-70">Unleash your creativity—</span>
-                <span className="text-white font-semibold">
-                  {" "}
-                  ideate, design, and produce stunning visuals and videos{" "}
-                </span>
-                <span className="opacity-70">powered by advanced</span>{" "}
-                <span className="text-white font-semibold">AI models</span>
-                <span className="opacity-70">
-                  . Seamlessly available on
-                </span>{" "}
-                <span className="text-white font-semibold">Web</span>.
-              </div>
+        {/* Second Row */}
+        <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 items-center">
+          <span className="playfair italic text-5xl sm:text-6xl md:text-7xl xl:text-9xl font-thin animate-fadeIn delay-200 text-center lg:relative lg:-top-4">
+            for your
+          </span>
+          <div className="overflow-hidden rounded-b-[60px] rounded-tl-[60px] w-[260px] sm:w-[400px] xl:w-[800px] h-20 sm:h-24 xl:h-28 shadow-lg animate-fadeIn delay-400">
+            <img
+              src="pic1.jpg"
+              className="w-full h-full object-cover transition-transform duration-500 hover:scale-125"
+            />
+          </div>
+        </div>
 
-              {/* Right side "of imagination" with fade-down animation */}
-              <div className="text-right p-3 sm:p-0" data-aos="fade-down">
-                <div className="text-5xl md:text-8xl font-normal px-1 sm:px-0">
-                  of
-                </div>
-                <div className="text-[52px] md:text-8xl font-playfair italic ">
-                  imaginat
-                  <wbr />
-                  ion
-                </div>
-              </div>
-            </div>
+        {/* Third Row */}
+        <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 md:gap-28 justify-center items-center lg:items-start pt-8">
+          <span className="galada text-5xl sm:text-6xl md:text-7xl xl:text-9xl font-bold animate-fadeIn delay-800 order-1 sm:order-2 lg:mt-4">
+            Agency
+          </span>
+          <div className="overflow-hidden rounded-r-[60px] w-[260px] sm:w-[400px] xl:w-[800px] h-20 sm:h-24 xl:h-28 shadow-lg animate-fadeIn delay-600 order-2 sm:order-1">
+            <img
+              src="pic2.jpeg"
+              className="w-full h-full object-cover transition-transform duration-500 hover:scale-125"
+            />
           </div>
         </div>
       </div>
 
-      {/* Bottom CTA Section with fade-up animation */}
-      <div
-        className="relative w-full flex justify-between items-center pt-4 sm:pt-0 px-2 md:px-10 mt-[23%] md:mt-0"
-        data-aos="fade-up"
-      >
-        {/* Left side text */}
-        <div className="text-base sm:text-xl md:text-4xl font-extralight leading-[17px] font-playfair">
-          <span className="text-2xl sm:text-3xl md:text-5xl">D</span>ream
-          <br />
-          <span className="font-bold text-sm sm:text-base md:text-2xl pl-2 sm:pl-3 md:pl-10">
-            MACHINE
-          </span>
-        </div>
+      {/* Styles */}
+      <style jsx>{`
+        .animate-bounce-slow {
+          animation: bounce 6s ease-in-out infinite alternate;
+        }
+        @keyframes bounce {
+          0% {
+            transform: translateY(0px);
+          }
+          100% {
+            transform: translateY(-15px);
+          }
+        }
 
-        {/* "Try Now" button with zoom-in animation */}
-        {/* Customized with data-aos-duration and data-aos-delay to reduce animation delay */}
-        <a
-          href="#contact"
-          className="relative overflow-hidden bg-white text-black font-semibold text-sm sm:text-xl md:text-2xl px-4 sm:px-8 md:px-10 py-1.5 sm:py-2 md:py-4 rounded-full group transition-colors duration-700 ease-out whitespace-nowrap"
-          data-aos="fade-up"
-          data-aos-duration="400" // faster animation: 400ms instead of default 600ms
-          data-aos-delay="0" // no delay, animates immediately when triggered
-        >
-          <span className="relative z-20 text-center transition-colors duration-700 group-hover:text-white whitespace-nowrap">
-            Try Now
-          </span>
-          <span className="absolute inset-0 z-10 rounded-full bg-black scale-0 group-hover:scale-150 transition-transform duration-700 ease-out origin-center" />
-        </a>
-      </div>
+        .animate-fadeIn {
+          opacity: 0;
+          animation: fadeIn 1s forwards;
+        }
+        .delay-200 {
+          animation-delay: 0.2s;
+        }
+        .delay-400 {
+          animation-delay: 0.4s;
+        }
+        .delay-600 {
+          animation-delay: 0.6s;
+        }
+        .delay-800 {
+          animation-delay: 0.8s;
+        }
+        @keyframes fadeIn {
+          to {
+            opacity: 1;
+          }
+        }
 
-      {/* Profile Image with smooth fade & scale animation */}
-      <div className="relative z-40 h-screen">
-  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 z-40">
-    <img
-      src="profile.png"
-      className={`h-60 sm:h-[400px] md:h-[400px] lg:h-[700px] transition-all duration-1000 ease-out ${
-        showProfile ? "opacity-100 scale-100" : "opacity-0 scale-75"
-      }`}
-    />
-  </div>
-</div>
+        .bg-gradient-radial {
+          background: radial-gradient(circle at center, #ffffff, #e5e7eb);
+        }
 
+        .floating-badge {
+          animation: floatMove 20s ease-in-out infinite alternate,
+            spinBadge 12s linear infinite;
+        }
+        @keyframes floatMove {
+          0% {
+            top: 15%;
+            left: 10%;
+          }
+          25% {
+            top: 25%;
+            left: 70%;
+          }
+          50% {
+            top: 60%;
+            left: 50%;
+          }
+          75% {
+            top: 40%;
+            left: 20%;
+          }
+          100% {
+            top: 15%;
+            left: 60%;
+          }
+        }
+        @keyframes spinBadge {
+          100% {
+            transform: rotate(360deg);
+          }
+        }
+      `}</style>
     </div>
   );
 };

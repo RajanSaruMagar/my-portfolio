@@ -14,15 +14,15 @@ export default function LandingPage() {
 
   // Auto redirect after 3s with fade-out
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (!clickedRef.current) {
-        setShowContent(false); // fade-out animation
-        setTimeout(() => router.push("/Homepage"), 800);
-      }
-    }, 3000);
+  const timer = setTimeout(() => {
+    if (!clickedRef.current) {
+      setShowContent(false); // start fade-out
+      router.push("/Homepage"); // trigger redirect immediately
+    }
+  }, 3000);
 
-    return () => clearTimeout(timer);
-  }, [router]);
+  return () => clearTimeout(timer);
+}, [router]);
 
   return (
     <div className="relative w-full min-h-[100dvh] overflow-hidden">

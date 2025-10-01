@@ -41,11 +41,9 @@ const GetInTouch = () => {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    // Validate formData with Zod
     const result = schema.safeParse(formData);
 
     if (!result.success) {
-      // Extract errors
       const fieldErrors: Partial<Record<keyof FormData, string>> = {};
       result.error.errors.forEach(({ path, message }) => {
         const key = path[0] as keyof FormData;
@@ -92,7 +90,7 @@ const GetInTouch = () => {
   return (
     <div
       id="contact"
-      className="bg-[#0a0a0a] text-white px-6 md:px-20 py-24 relative"
+      className="bg-gray-100 text-black px-6 md:px-20 py-24 relative"
     >
       <ToastContainer
         position="top-right"
@@ -103,7 +101,7 @@ const GetInTouch = () => {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme="light"
         role="alert"
         aria-live="assertive"
       />
@@ -117,7 +115,7 @@ const GetInTouch = () => {
         <p className="text-4xl font-bold tracking-tight">
           Let&apos;s start a project together
         </p>
-        <p className="text-gray-400 text-sm">
+        <p className="text-gray-600 text-sm">
           Have an idea in mind? Let’s bring it to life with creativity and
           precision.
         </p>
@@ -135,7 +133,7 @@ const GetInTouch = () => {
           <div>
             <label
               htmlFor="fullName"
-              className="block text-sm mb-1 text-gray-300"
+              className="block text-sm mb-1 text-gray-700"
             >
               Full Name
             </label>
@@ -143,11 +141,12 @@ const GetInTouch = () => {
               id="fullName"
               name="fullName"
               type="text"
-              className={`w-full bg-[#1a1a1a] border px-4 py-3 rounded-md focus:outline-none focus:ring-2 ${
+              placeholder="Enter your full name"
+              className={`w-full bg-white border px-4 py-3 rounded-lg shadow-sm hover:shadow-md transition focus:outline-none focus:ring-2 ${
                 errors.fullName
                   ? "border-red-500 focus:ring-red-500"
-                  : "border-gray-700 focus:ring-indigo-600"
-              } text-white`}
+                  : "border-gray-300 focus:ring-indigo-600"
+              } text-black`}
               value={formData.fullName}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, fullName: e.target.value }))
@@ -170,7 +169,7 @@ const GetInTouch = () => {
           <div>
             <label
               htmlFor="formEmail"
-              className="block text-sm mb-1 text-gray-300"
+              className="block text-sm mb-1 text-gray-700"
             >
               Email
             </label>
@@ -178,11 +177,12 @@ const GetInTouch = () => {
               id="formEmail"
               name="formEmail"
               type="email"
-              className={`w-full bg-[#1a1a1a] border px-4 py-3 rounded-md focus:outline-none focus:ring-2 ${
+              placeholder="Enter your email"
+              className={`w-full bg-white border px-4 py-3 rounded-lg shadow-sm hover:shadow-md transition focus:outline-none focus:ring-2 ${
                 errors.formEmail
                   ? "border-red-500 focus:ring-red-500"
-                  : "border-gray-700 focus:ring-indigo-600"
-              } text-white`}
+                  : "border-gray-300 focus:ring-indigo-600"
+              } text-black`}
               value={formData.formEmail}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, formEmail: e.target.value }))
@@ -205,18 +205,19 @@ const GetInTouch = () => {
           <div>
             <label
               htmlFor="formMessage"
-              className="block text-sm mb-1 text-gray-300"
+              className="block text-sm mb-1 text-gray-700"
             >
               Message
             </label>
             <textarea
               id="formMessage"
               name="formMessage"
-              className={`w-full h-32 bg-[#1a1a1a] border px-4 py-3 rounded-md resize-none focus:outline-none focus:ring-2 ${
+              placeholder="Write your message..."
+              className={`w-full h-32 bg-white border px-4 py-3 rounded-lg shadow-sm hover:shadow-md transition resize-none focus:outline-none focus:ring-2 ${
                 errors.formMessage
                   ? "border-red-500 focus:ring-red-500"
-                  : "border-gray-700 focus:ring-indigo-600"
-              } text-white`}
+                  : "border-gray-300 focus:ring-indigo-600"
+              } text-black`}
               value={formData.formMessage}
               onChange={(e) =>
                 setFormData((prev) => ({ ...prev, formMessage: e.target.value }))
@@ -239,16 +240,41 @@ const GetInTouch = () => {
           <button
             type="submit"
             disabled={formSubmitting}
-            className="px-8 py-3 rounded-md bg-indigo-600 hover:bg-white hover:text-black transition font-medium shadow-lg"
+            className="px-8 py-3 rounded-lg bg-gradient-to-r from-indigo-600 to-purple-600 text-white hover:opacity-90 transition font-medium shadow-lg flex items-center justify-center gap-2"
           >
-            {formSubmitting ? "Submitting..." : "Submit"}
+            {formSubmitting ? (
+              <>
+                <svg
+                  className="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8v8H4z"
+                  ></path>
+                </svg>
+                Sending...
+              </>
+            ) : (
+              "Submit"
+            )}
           </button>
         </form>
 
         {/* Info Box */}
         <div
-          className="bg-[#121212] p-6 rounded-xl shadow-lg space-y-5 max-h-[520px] md:max-h-[680px] overflow-y-auto scroll-smooth scrollbar-thin scrollbar-thumb-indigo-600 scrollbar-track-transparent"
-          style={{ scrollbarWidth: "thin", scrollbarColor: "#4f46e5 transparent" }}
+          className="bg-white p-6 rounded-xl shadow-lg space-y-5 hover:shadow-2xl transition-transform hover:-translate-y-1"
           data-aos="fade-up"
         >
           <p className="text-green-600 flex items-center gap-2 text-sm">
@@ -256,7 +282,7 @@ const GetInTouch = () => {
             Available for work
           </p>
 
-          <div className="w-20 h-20 rounded-full overflow-hidden border border-gray-700">
+          <div className="w-20 h-20 rounded-full overflow-hidden border-2 border-green-500 shadow-md">
             <img
               src="about.png"
               alt="Rajan Saru Magar"
@@ -265,88 +291,89 @@ const GetInTouch = () => {
           </div>
 
           <div className="space-y-1">
-            <h3 className="text-xl font-semibold text-white">Rajan Saru Magar</h3>
-            <p className="text-sm text-gray-400">
+            <h3 className="text-xl font-bold text-black">Rajan Saru Magar</h3>
+            <p className="text-sm text-gray-600">
               Frontend Developer • Graphic Designer • UI/UX
             </p>
           </div>
 
-          <p className="text-gray-400 text-sm leading-relaxed">
-            I design clean interfaces, craft intuitive user experiences, and build modern frontends. Let’s turn your idea into a bold digital presence.
+          <p className="text-gray-600 text-sm leading-relaxed">
+            I design clean interfaces, craft intuitive user experiences, and
+            build modern frontends. Let’s turn your idea into a bold digital
+            presence.
           </p>
 
-          <ul className="text-gray-300 text-sm space-y-4">
+          <ul className="text-gray-700 text-sm space-y-4">
             <li className="flex items-center gap-2">
-              <MapPinIcon className="h-5 w-5 text-indigo-500" />
-              Devdaha-05, Khaireni, Nepal
+              <MapPinIcon className="h-5 w-5 text-indigo-600" />
+              <a
+                href="https://maps.google.com/?q=Devdaha-05,Khaireni,Nepal"
+                target="_blank"
+                rel="noreferrer"
+                className="hover:underline"
+              >
+                Devdaha-05, Khaireni, Nepal
+              </a>
             </li>
             <li className="flex items-center gap-2">
-              <PhoneIcon className="h-5 w-5 text-indigo-500" />
-              +977 9817527972
+              <PhoneIcon className="h-5 w-5 text-indigo-600" />
+              <a href="tel:+9779817527972" className="hover:underline">
+                +977 9817527972
+              </a>
             </li>
             <li className="flex items-center gap-2">
-              <EnvelopeIcon className="h-5 w-5 text-indigo-500" />
-              rajansaru789@gmail.com
+              <EnvelopeIcon className="h-5 w-5 text-indigo-600" />
+              <a
+                href="mailto:rajansaru789@gmail.com"
+                className="hover:underline"
+              >
+                rajansaru789@gmail.com
+              </a>
             </li>
           </ul>
 
-          <a
-            href="#contact"
-            onClick={(e) => e.preventDefault()}
-            className="inline-block text-sm px-4 py-2 mt-2 rounded-md bg-indigo-600 hover:bg-indigo-700 transition font-medium shadow cursor-pointer select-none"
-          >
-            Let&apos;s Work Together
-          </a>
+         <p className="inline-block text-lg md:text-xl px-6 py-3 mt-6 rounded-xl bg-gradient-to-r from-indigo-50 to-indigo-100 text-indigo-700 font-semibold shadow-sm border border-indigo-200">
+  Let&apos;s Work Together ✨
+</p>
 
-          <div className="flex gap-4 pt-4">
-            <a
-              href="https://www.linkedin.com/in/rajan-saru-magar-6a168230a/"
-              target="_blank"
-              rel="noreferrer"
-              className="transition-transform hover:scale-110"
-            >
-              <img
-                className="h-5 w-5 filter invert brightness-200 hover:brightness-125 transition"
-                src="linkedin.svg"
-                alt="LinkedIn"
-              />
-            </a>
-            <a
-              href="https://github.com/RajanSaruMagar"
-              target="_blank"
-              rel="noreferrer"
-              className="transition-transform hover:scale-110"
-            >
-              <img
-                className="h-5 w-5 filter invert brightness-200 hover:brightness-125 transition"
-                src="github.svg"
-                alt="GitHub"
-              />
-            </a>
-            <a
-              href="https://www.instagram.com/rjan_mgrx/"
-              target="_blank"
-              rel="noreferrer"
-              className="transition-transform hover:scale-110"
-            >
-              <img
-                className="h-5 w-5 filter invert brightness-200 hover:brightness-125 transition"
-                src="instagram.svg"
-                alt="Instagram"
-              />
-            </a>
-            <a
-              href="https://x.com/rajan_saru29761"
-              target="_blank"
-              rel="noreferrer"
-              className="transition-transform hover:scale-110"
-            >
-              <img
-                className="h-5 w-5 filter invert brightness-200 hover:brightness-125 transition"
-                src="twitter.svg"
-                alt="Twitter"
-              />
-            </a>
+
+          <div className="flex gap-3 pt-4">
+            {[
+              {
+                href: "https://www.linkedin.com/in/rajan-saru-magar-6a168230a/",
+                src: "linkedin.svg",
+                alt: "LinkedIn",
+              },
+              {
+                href: "https://github.com/RajanSaruMagar",
+                src: "github.svg",
+                alt: "GitHub",
+              },
+              {
+                href: "https://www.instagram.com/rjan_mgrx/",
+                src: "instagram.svg",
+                alt: "Instagram",
+              },
+              {
+                href: "https://x.com/rajan_saru29761",
+                src: "twitter.svg",
+                alt: "Twitter",
+              },
+            ].map((item) => (
+              <a
+                key={item.alt}
+                href={item.href}
+                target="_blank"
+                rel="noreferrer"
+                className="p-2 rounded-full bg-gray-100 hover:bg-indigo-600 transition"
+              >
+                <img
+                  className="h-5 w-5"
+                  src={item.src}
+                  alt={item.alt}
+                />
+              </a>
+            ))}
           </div>
         </div>
       </div>

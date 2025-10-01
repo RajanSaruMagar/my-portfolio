@@ -34,20 +34,11 @@ body {
   animation: flame 0.4s infinite ease-in-out;
 }
 
-/* :root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+.playfair {
+  font-family: 'Playfair Display', serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.galada {
+  font-family: 'Galada', cursive;
 }
-
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-} */

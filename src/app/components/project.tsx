@@ -1,21 +1,18 @@
-import React, { useEffect, FC } from 'react'
-import AOS from 'aos'
-import 'aos/dist/aos.css'
+import React, { useEffect, FC } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const ProjectSection: FC = () => {
   useEffect(() => {
     AOS.init({
       duration: 1000,
-      easing: 'ease-in-out',
+      easing: "ease-in-out",
       once: true,
-    })
-  }, [])
+    });
+  }, []);
 
   return (
-    <section
-      className="flex flex-col items-center justify-center min-h-[300px] bg-black px-6 py-20 text-center"
-      data-aos="fade-up"
-    >
+    <section className="flex flex-col items-center justify-center min-h-[300px] bg-black px-6 py-20 text-center">
       <h1 className="text-white text-5xl font-extrabold tracking-wide font-serif mb-4 drop-shadow-lg">
         Projects
       </h1>
@@ -32,7 +29,8 @@ const ProjectSection: FC = () => {
         🚧
       </p>
       <p className="max-w-xl text-gray-400 text-lg italic font-light">
-        Great things are in the works. Stay tuned for innovative creations and exciting updates!
+        Great things are in the works. Stay tuned for innovative creations and
+        exciting updates!
       </p>
 
       <style jsx>{`
@@ -59,7 +57,9 @@ const ProjectSection: FC = () => {
           animation-delay: 0.4s;
         }
         @keyframes bounce {
-          0%, 80%, 100% {
+          0%,
+          80%,
+          100% {
             transform: translateY(0);
             opacity: 0.7;
           }
@@ -70,7 +70,7 @@ const ProjectSection: FC = () => {
         }
       `}</style>
     </section>
-  )
-}
+  );
+};
 
-export default ProjectSection
+export default ProjectSection;
