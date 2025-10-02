@@ -16,41 +16,46 @@ export default function Portfolio() {
     <div id="portfolio" className="bg-black px-6 md:px-20 xl:px-40 pt-20">
       {/* Top Section */}
       <div className="min-h-screen flex flex-col items-center justify-center relative overflow-hidden pb-20">
-        {/* Video Grid */}
-        <div className="grid grid-cols-2 grid-rows-2 w-full h-full absolute z-0 pointer-events-none">
-          <div />
-          <div className="flex justify-end items-start p-2">
-            <video
-              className="w-[90%] max-w-[300px] sm:max-w-[350px] md:max-w-[400px] lg:max-w-[500px] rounded-md brightness-50"
-              autoPlay
-              loop
-              muted
-              playsInline
-            >
-              <source src="/video.webm" type="video/webm" />
-              <source src="/video.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div className="flex justify-start items-end p-2">
-            <video
-              className="w-[90%] max-w-[300px] sm:max-w-[350px] md:max-w-[400px] lg:max-w-[500px] rounded-md brightness-50"
-              autoPlay
-              loop
-              muted
-              playsInline
-            >
-              <source src="/video.webm" type="video/webm" />
-              <source src="/video.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div />
-        </div>
+  {/* Video Grid */}
+  <div className="grid grid-cols-2 grid-rows-2 w-full h-full absolute z-0 pointer-events-none">
+    <div />
+    <div className="flex justify-end items-start p-2 relative">
+      <video
+        className="w-[90%] max-w-[300px] sm:max-w-[350px] md:max-w-[400px] lg:max-w-[500px] rounded-md brightness-50"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/video.webm" type="video/webm" />
+        <source src="/video.mp4" type="video/mp4" />
+      </video>
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/40 rounded-md pointer-events-none" />
+    </div>
+    <div className="flex justify-start items-end p-2 relative">
+      <video
+        className="w-[90%] max-w-[300px] sm:max-w-[350px] md:max-w-[400px] lg:max-w-[500px] rounded-md brightness-50"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/video.webm" type="video/webm" />
+        <source src="/video.mp4" type="video/mp4" />
+      </video>
+      {/* Dark overlay */}
+      <div className="absolute inset-0 bg-black/40 rounded-md pointer-events-none" />
+    </div>
+    <div />
+  </div>
 
-        {/* Center Text with AOS */}
-        <div data-aos="zoom-in">
-          <ScrollText />
-        </div>
-      </div>
+  {/* Center Text with AOS */}
+  <div data-aos="zoom-in">
+    <ScrollText />
+  </div>
+</div>
+
 
       {/* Horizontal Line */}
       <hr className="border-t-2 border-white/10 my-8" />

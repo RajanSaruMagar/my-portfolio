@@ -41,7 +41,8 @@ const HomeSection = () => {
           </defs>
           <text fill="white" fontSize="12" fontFamily="cursive">
             <textPath href="#circlePath" startOffset="0%">
-              ✦ Best for your choice since 2024 ✦ Creative Design ✦ Agency ✦ Excellence ✦
+              ✦ Best for your choice since 2024 ✦ Creative Design ✦ Agency ✦
+              Excellence ✦
             </textPath>
           </text>
         </svg>
@@ -54,7 +55,11 @@ const HomeSection = () => {
           stroke="currentColor"
           strokeWidth={2}
         >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m0 0l-6-6m6 6l6-6" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M12 4v16m0 0l-6-6m6 6l6-6"
+          />
         </svg>
       </div>
 
@@ -68,7 +73,7 @@ const HomeSection = () => {
               className="w-full h-full object-cover scale-125 transition-transform duration-500 hover:scale-150"
             />
           </div>
-          <span className="galada text-5xl sm:text-6xl md:text-7xl xl:text-9xl font-bold animate-fadeIn text-center lg:mt-4">
+          <span className="galada text-5xl sm:text-6xl md:text-7xl xl:text-9xl  animate-fadeIn text-center lg:mt-4">
             Creative Designer
           </span>
         </div>
@@ -88,7 +93,7 @@ const HomeSection = () => {
 
         {/* Third Row */}
         <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 md:gap-28 justify-center items-center lg:items-start pt-8">
-          <span className="galada text-5xl sm:text-6xl md:text-7xl xl:text-9xl font-bold animate-fadeIn delay-800 order-1 sm:order-2 lg:mt-4">
+          <span className="galada text-5xl sm:text-6xl md:text-7xl xl:text-9xl  animate-fadeIn delay-800 order-1 sm:order-2 lg:mt-4">
             Agency
           </span>
           <div className="overflow-hidden rounded-r-[60px] w-[260px] sm:w-[400px] xl:w-[800px] h-20 sm:h-24 xl:h-28 shadow-lg animate-fadeIn delay-600 order-2 sm:order-1">

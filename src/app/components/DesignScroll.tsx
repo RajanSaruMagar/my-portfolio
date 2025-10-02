@@ -2,249 +2,113 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 
-const texts = [
-  "Logo Design",
-  "Package Design",
-  "Poster Design",
-  "Book Cover Design",
-];
-
+const texts = ["Logo Design", "Package Design", "Poster Design", "Book Cover Design"];
 const imageSets = [
-  [
-    {
-      src: "/logo1.png",
-      style: { left: "15%", bottom: "10%" },
-      mobileStyle: { left: "5%", bottom: "15%" },
-    },
-    {
-      src: "/logo2.png",
-      style: { left: "40%", bottom: "15%" },
-      mobileStyle: { left: "35%", bottom: "5%" },
-    },
-    {
-      src: "/logo3.png",
-      style: { right: "20%", bottom: "8%" },
-      mobileStyle: { right: "5%", bottom: "20%" },
-    },
-  ],
-  [
-    {
-      src: "/package1.png",
-      style: { left: "10%", bottom: "15%" },
-      mobileStyle: { left: "8%", bottom: "10%" },
-    },
-    {
-      src: "/package2.png",
-      style: { left: "50%", bottom: "10%", transform: "translateX(-50%)" },
-      mobileStyle: { left: "50%", bottom: "15%", transform: "translateX(-50%)" },
-    },
-    {
-      src: "/package3.png",
-      style: { right: "10%", bottom: "20%" },
-      mobileStyle: { right: "8%", bottom: "10%" },
-    },
-  ],
-  [
-    {
-      src: "/poster1.png",
-      style: { left: "5%", bottom: "10%" },
-      mobileStyle: { left: "10%", bottom: "12%" },
-    },
-    {
-      src: "/poster2.png",
-      style: { left: "40%", bottom: "5%" },
-      mobileStyle: { left: "30%", bottom: "10%" },
-    },
-    {
-      src: "/poster3.png",
-      style: { right: "5%", bottom: "15%" },
-      mobileStyle: { right: "8%", bottom: "15%" },
-    },
-  ],
-  [
-    {
-      src: "/book1.png",
-      style: { left: "50%", bottom: "10%", transform: "translateX(-50%)" },
-      mobileStyle: { left: "50%", bottom: "10%", transform: "translateX(-50%)" },
-    },
-    {
-      src: "/book2.png",
-      style: { left: "20%", bottom: "25%" },
-      mobileStyle: { left: "15%", bottom: "20%" },
-    },
-    {
-      src: "/book3.png",
-      style: { right: "20%", bottom: "20%" },
-      mobileStyle: { right: "15%", bottom: "20%" },
-    },
-  ],
+  ["/logo1.png", "/logo2.png", "/logo3.png"],
+  ["/package1.png", "/package2.png", "/package3.png"],
+  ["/poster1.png", "/poster2.png", "/poster3.png"],
+  ["/book1.png", "/book2.png", "/book3.png"],
 ];
 
-const useWindowSize = () => {
-  const [size, setSize] = useState([0, 0]);
+const useWindowWidth = () => {
+  const [w, setW] = useState(0);
   useEffect(() => {
-    const handleResize = () => setSize([window.innerWidth, window.innerHeight]);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    const resize = () => setW(window.innerWidth);
+    resize();
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
   }, []);
-  return size;
+  return w;
 };
 
 const ScrollFreezeShowcase = () => {
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [width] = useWindowSize();
+  const width = useWindowWidth();
 
   useEffect(() => {
-    let frameId: number;
-    const handleScroll = () => {
-      if (frameId) cancelAnimationFrame(frameId);
-      frameId = requestAnimationFrame(() => {
-        const section = document.getElementById("scroll-freeze");
-        if (!section) return;
-        const rect = section.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        const progress = Math.min(Math.max((windowHeight - rect.top) / section.offsetHeight, 0), 1);
-        setScrollProgress(progress);
-      });
+    const section = document.getElementById("scroll-freeze");
+    if (!section) return;
+
+    const onScroll = () => {
+      const rect = section.getBoundingClientRect();
+      const progress = Math.min(Math.max((window.innerHeight - rect.top) / section.offsetHeight, 0), 1);
+      setScrollProgress(progress);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      cancelAnimationFrame(frameId);
-    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const totalSlides = texts.length;
   const exactIndex = scrollProgress * totalSlides;
   const activeIndex = Math.floor(exactIndex);
-  const [firstWord, secondWord] = texts[activeIndex]?.split(" ") || [];
+  const [first, second] = texts[activeIndex]?.split(" ") || [];
 
-  const getResponsiveSize = () => {
-    if (width < 640) return 120;
-    if (width < 1024) return 180;
-    return 225;
-  };
+  const getSize = () => (width < 640 ? 120 : width < 1024 ? 180 : 225);
+
+  const positions = [
+    { x: -100, y: -20, rotate: -10 },
+    { x: 0, y: 0, rotate: 0 },
+    { x: 100, y: 20, rotate: 10 },
+  ];
 
   return (
     <section id="scroll-freeze" className="relative h-[400vh] bg-black">
-      <div className="sticky top-0 h-screen overflow-hidden px-4 sm:px-8">
-        {/* Image container */}
-        <div className="absolute inset-0 z-0 flex flex-col items-center">
-          {imageSets.map((images, i) => {
-            const offset = i - exactIndex;
-            const baseTranslateY = offset * 100;
+      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+        {imageSets.map((set, i) => {
+          const offset = i - exactIndex;
+          const translateY = i === 0 ? offset * 50 : offset * 100; // slow first set
+          const opacity = 0.3 + (1 - Math.min(Math.abs(offset), 1)) * 0.7;
 
-            // Improved opacity: min 0.3, max 1
-            const opacity = 0.3 + (1 - Math.min(Math.abs(offset), 1)) * 0.7;
-
-            if (width < 1024) {
-              // Mobile/tablet: stack sets vertically
-              let mobileTranslateY = baseTranslateY;
-              if (i === 1 && baseTranslateY < -5) mobileTranslateY = -5;
-
-              return (
-                <div
-                  key={`mobile-set-${i}`}
-                  className="flex flex-wrap justify-center gap-4 px-6 py-12 transition-opacity duration-500 ease-out"
-                  style={{
-                    transform: `translateY(${mobileTranslateY}vh)`,
-                    opacity,
-                    width: "100%",
-                    minHeight: getResponsiveSize() * 1.2 + 40,
-                  }}
-                >
-                  {images.map((img, j) => (
-                    <div
-                      key={`mobile-img-${i}-${j}`}
-                      className="relative rounded-2xl shadow-2xl overflow-hidden"
-                      style={{
-                        width: getResponsiveSize(),
-                        height: getResponsiveSize() * 1.2,
-                        flex: "0 0 auto",
-                      }}
-                    >
-                      <Image
-                        src={img.src}
-                        alt=""
-                        fill
-                        sizes="(max-width: 640px) 120px, (max-width: 1024px) 180px"
-                        className="object-contain rounded-2xl"
-                        quality={90}
-                        priority
-                      />
-                    </div>
-                  ))}
-                </div>
-              );
-            }
-
-            // Desktop: absolute positioned images
-            return images.map((img, j) => {
-              const baseStyle = img.style;
-              return (
-                <div
-                  key={`${i}-${j}`}
-                  className="absolute rounded-2xl shadow-2xl transition-transform duration-500 ease-out will-change-transform overflow-hidden"
-                  style={{
-                    ...baseStyle,
-                    transform: `${baseStyle.transform || ""} translateY(${baseTranslateY}vh)`,
-                    opacity,
-                    width: `${getResponsiveSize()}px`,
-                    height: `${getResponsiveSize() * 1.2}px`,
-                    maxWidth: "90vw",
-                  }}
-                >
-                  <Image
-                    src={img.src}
-                    alt=""
-                    fill
-                    sizes="225px"
-                    className="object-contain rounded-2xl"
-                    quality={90}
-                    priority
-                  />
-                </div>
-              );
-            });
-          })}
-        </div>
-
-        {/* Text overlay */}
-        <div className="relative z-10 flex h-full items-center justify-center pointer-events-none">
-          <p
-            className="text-center font-bold text-white/20 leading-none transition-all duration-300
-                text-[18vw] sm:text-[14vw] md:text-[12vw] lg:text-[10vw] xl:text-[9vw] max-w-full px-2 sm:px-0"
-            style={{ marginTop: width < 640 ? "5vh" : "0" }}
-          >
-            {firstWord?.toUpperCase()}
-            <br />
-            <span
-              className="block font-playfair tracking-tight
-                  text-[22vw] sm:text-[16vw] md:text-[14vw] lg:text-[12vw] xl:text-[10vw]"
-              style={{ color: "rgba(255,255,255,0.2)" }}
+          return (
+            <div
+              key={i}
+              className="absolute flex justify-center"
+              style={{ transform: `translateY(${translateY}vh)`, opacity, gap: width >= 1024 ? 48 : 24 }}
             >
-              {secondWord?.toUpperCase()}
-            </span>
+              {set.map((src, j) => {
+                const style =
+                  width >= 1024
+                    ? `translate(${positions[j]?.x || 0}px, ${positions[j]?.y || 0}px) rotate(${positions[j]?.rotate || 0}deg)`
+                    : "none";
+                return (
+                  <div
+                    key={j}
+                    className="relative rounded-2xl overflow-hidden shadow-lg"
+                    style={{ width: getSize(), height: getSize() * 1.2, transform: style }}
+                  >
+                    <Image src={src} alt="" fill className="object-contain rounded-2xl" priority={i === 0} />
+                  </div>
+                );
+              })}
+            </div>
+          );
+        })}
+
+        {/* Text Overlay */}
+        <div className="relative z-10 text-center pointer-events-none">
+          <p className="font-bold text-white/20 text-[18vw] sm:text-[14vw] md:text-[12vw] lg:text-[10vw] xl:text-[9vw]">
+            {first?.toUpperCase()}
           </p>
+          <span className="block font-playfair tracking-tight text-[22vw] sm:text-[16vw] md:text-[14vw] lg:text-[12vw] xl:text-[10vw] text-white/20">
+            {second?.toUpperCase()}
+          </span>
         </div>
 
-        {/* Sidebar navigation */}
-        <div className="sticky bottom-10 left-4 md:left-10 z-20 text-white text-sm md:text-base font-medium max-w-xs sm:max-w-md">
-          <p className="mb-4 text-white/70 tracking-wide uppercase">
-            Explore my visual design journey
-          </p>
+        {/* Sidebar nav */}
+        <div className="absolute bottom-10 left-4 md:left-10 text-white text-sm md:text-base max-w-xs sm:max-w-md font-medium">
+          <p className="mb-4 text-white/70 uppercase">Explore my visual design journey</p>
           <div className="flex flex-col gap-2">
-            {texts.map((text, i) => (
+            {texts.map((t, i) => (
               <div
-                key={text}
-                className={`transition-all duration-300 cursor-default relative pl-2 ${
+                key={t}
+                className={`pl-2 transition-all duration-200 ${
                   activeIndex === i
-                    ? "text-white scale-[1.05] before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-1 before:w-1 before:rounded-full before:bg-white"
-                    : "text-white/50 hover:text-white/80"
+                    ? "text-white scale-105 relative before:absolute before:left-0 before:top-1/2 before:-translate-y-1/2 before:h-1 before:w-1 before:bg-white before:rounded-full"
+                    : "text-white/50"
                 }`}
               >
-                {text}
+                {t}
               </div>
             ))}
           </div>

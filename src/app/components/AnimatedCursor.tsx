@@ -1,11 +1,28 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 export default function ArrowCursor() {
   const circleRef = useRef<HTMLDivElement>(null);
   const pointerRef = useRef<SVGSVGElement>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
+    // detect device width
+    const checkDevice = () => {
+      setIsDesktop(window.innerWidth >= 768); // only enable on >= md screens
+    };
+
+    checkDevice();
+    window.addEventListener("resize", checkDevice);
+
+    return () => {
+      window.removeEventListener("resize", checkDevice);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isDesktop) return; // disable on mobile
+
     let mouseX = window.innerWidth / 2;
     let mouseY = window.innerHeight / 2;
     let circleX = mouseX;
@@ -43,7 +60,9 @@ export default function ArrowCursor() {
 
     window.addEventListener("mousemove", move);
     return () => window.removeEventListener("mousemove", move);
-  }, []);
+  }, [isDesktop]);
+
+  if (!isDesktop) return null; // completely disable on mobile
 
   return (
     <>
@@ -56,10 +75,7 @@ export default function ArrowCursor() {
         height="24"
         viewBox="0 0 20 24"
         className="fixed pointer-events-none z-[10001]"
-        style={{
-          top: 0,
-          left: 0,
-        }}
+        style={{ top: 0, left: 0 }}
       >
         <polygon
           points="10,0 20,24 10,18 0,24"
@@ -69,16 +85,16 @@ export default function ArrowCursor() {
         />
       </svg>
 
-      {/* Lagging outer circle visible on both black & white */}
+      {/* Lagging outer circle */}
       <div
         ref={circleRef}
         className="fixed pointer-events-none z-[10000] w-20 h-20 rounded-full"
         style={{
           top: 0,
           left: 0,
-          border: "2px solid rgba(255,255,255,0.9)", // mostly white border
+          border: "2px solid rgba(255,255,255,0.9)",
           boxShadow:
-            "0 0 6px rgba(0,0,0,0.6), 0 0 6px rgba(255,255,255,0.5)", // black+white glow
+            "0 0 6px rgba(0,0,0,0.6), 0 0 6px rgba(255,255,255,0.5)",
           opacity: 0.85,
         }}
       />
